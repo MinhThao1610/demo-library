@@ -7,9 +7,9 @@ class BorrowController {
         let data = await borrowServices.getAllUser();
         console.log(data);
         return res.render('borrow', {
-            dataTable: data
+            dataTable: data,
         });
-    }
+    };
 
     // [GET] /borrow/:slug
     show(req, res) {
@@ -18,16 +18,15 @@ class BorrowController {
 
     add = (req, res) => {
         res.render('add');
-    }
+    };
 
-    postAdd = async(req, res) => {
-        
+    postAdd = async (req, res) => {
         // res.render('home');
 
         let message = await borrowServices.createNewUser(req.body);
         console.log(message);
         return res.render('borrow');
-    }
+    };
 }
 
 module.exports = new BorrowController();

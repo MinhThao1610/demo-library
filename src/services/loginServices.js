@@ -3,9 +3,8 @@ const db = require('../models/index');
 const salt = bcrypt.genSaltSync(10);
 
 // đăng ký
-let createNewUser = async (data) =>  {
-
-    return new Promise(async(resolve, reject) => {
+let createNewUser = async (data) => {
+    return new Promise(async (resolve, reject) => {
         try {
             await db.staffs.create({
                 fullname: data.fullname,
@@ -13,17 +12,17 @@ let createNewUser = async (data) =>  {
                 phoneNumber: data.phoneNumber,
                 username: data.username,
                 password: data.password,
-            })
+            });
             resolve('ok');
         } catch (error) {
             reject(error);
         }
-    })
+    });
 
     // let hashPasswordFromBcrypt = await hashUserPassword(data.password);
     // console.log('data from services');
     // console.log(data);
-}
+};
 
 // hash password hiện đang lỗi, làm sau
 let hashUserPassword = (password) => {
@@ -35,7 +34,7 @@ let hashUserPassword = (password) => {
         } catch (e) {
             reject(e);
         }
-    })
+    });
 
     // cách 2
     // bcrypt.genSalt(10, function(err, salt) {
@@ -45,8 +44,8 @@ let hashUserPassword = (password) => {
 
     // });
 };
-  
-// hiển thị thông tin 
+
+// hiển thị thông tin
 let getAllUser = () => {
     // hàm Promise() để code thực thi trong hàm ròi mới chạy cái khác
     return new Promise(async (resolve, reject) => {
@@ -58,10 +57,10 @@ let getAllUser = () => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
-}
+};

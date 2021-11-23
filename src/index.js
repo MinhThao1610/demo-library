@@ -17,9 +17,9 @@ db.connectBD();
 //     });
 // });
 
- // app.get('/search', (req, res) => {
-    //     res.render('search');
-    // });
+// app.get('/search', (req, res) => {
+//     res.render('search');
+// });
 
 // cấu hình lại file tĩnh
 app.use(express.static(path.join(__dirname, 'public')));

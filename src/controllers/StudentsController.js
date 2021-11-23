@@ -1,5 +1,5 @@
 const db = require('../models/index');
-const studentsServices = require('../services/studentsServices')
+const studentsServices = require('../services/studentsServices');
 
 class StudentsController {
     // [GET] /students
@@ -7,26 +7,26 @@ class StudentsController {
         let data = await studentsServices.getAllUser();
         console.log(data);
         return res.render('students', {
-            dataTable: data
+            dataTable: data,
         });
- 
-    //    res.render('students');
-    }
+
+        //    res.render('students');
+    };
 
     // [GET] /students/:slug
     show = (req, res) => {
         res.send('Students detail!!!');
-    }
+    };
 
     add = (req, res) => {
         res.render('add');
-    }
+    };
 
-    postAdd = async(req, res) => {
+    postAdd = async (req, res) => {
         let message = await studentsServices.createNewUser(req.body);
         console.log(message);
         return res.render('students');
-    }
+    };
 }
 
 module.exports = new StudentsController();

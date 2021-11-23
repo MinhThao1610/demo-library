@@ -3,9 +3,8 @@ const db = require('../models/index');
 const salt = bcrypt.genSaltSync(10);
 
 // Thêm
-let createNewUser = async (data) =>  {
-
-    return new Promise(async(resolve, reject) => {
+let createNewUser = async (data) => {
+    return new Promise(async (resolve, reject) => {
         try {
             await db.books.create({
                 name: data.name,
@@ -14,13 +13,13 @@ let createNewUser = async (data) =>  {
                 total_amount: data.total_amount,
                 current_number: data.current_number,
                 total_lost: data.total_lost,
-            })
+            });
             resolve('ok');
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 // hiển thị
 let getAllUser = () => {
@@ -34,8 +33,8 @@ let getAllUser = () => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 // cập nhật
 // let updateUser = () => {
@@ -58,4 +57,4 @@ let getAllUser = () => {
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
-}
+};

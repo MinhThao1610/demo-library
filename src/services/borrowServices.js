@@ -3,9 +3,8 @@ const db = require('../models/index');
 const salt = bcrypt.genSaltSync(10);
 
 // Thêm
-let createNewUser = async (data) =>  {
-
-    return new Promise(async(resolve, reject) => {
+let createNewUser = async (data) => {
+    return new Promise(async (resolve, reject) => {
         try {
             await db.borrow_books.create({
                 MSSV: data.MSSV,
@@ -14,13 +13,13 @@ let createNewUser = async (data) =>  {
                 pay_date: data.pay_date,
                 staff: data.staff,
                 note: data.note,
-            })
+            });
             resolve('ok');
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 // hiển thị
 let getAllUser = () => {
@@ -34,10 +33,10 @@ let getAllUser = () => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
-}
+};
