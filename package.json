@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thuytrantt9421/Library.git"
+    "url": "git+https://github.com/MinhThao1610/demo-library.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/thuytrantt9421/Library/issues"
+    "url": "https://github.com/MinhThao1610/demo-library.git"
   },
-  "homepage": "https://github.com/thuytrantt9421/Library#readme",
+  "homepage": "https://github.com/MinhThao1610/demo-library.git",
   "dependencies": {
     "@angular/cli": "^13.0.1",
     "@angular/core": "^13.0.0",

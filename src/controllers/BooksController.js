@@ -40,8 +40,19 @@ class BooksController {
     };
 
     edit = (req, res) => {
-        res.render('books/edit');
+        // let bookId = req.query.id;
+        // if(bookId) {
+        //     let bookData = booksServices.getBookInfoId(bookId);
+        // } else {
+        //     console.log('error');
+        // }
+
+         res.render('books/edit');
     };
+
+    
+
+
 
     delete = (req, res) => {
         res.render('books/delete');

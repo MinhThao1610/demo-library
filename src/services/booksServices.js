@@ -37,24 +37,41 @@ let getAllUser = () => {
 };
 
 // cập nhật
-// let updateUser = () => {
-//     return new Promise(async (resolve, reject) => {
-//         try {
-//             let users = db.books.update({
-//                 raw: true,
-//             }, {
-//                 where: {
-//                     id: true,
-//                 }
-//             });
-//             resolve(users);
-//         } catch (error) {
-//             reject(error);
-//         }
-//     })
-// }
+let updateUser = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let book = await db.books.findOne({
+                where: {id: data.id}
+            })
+            if(book) {
+                books.name = data.name;
+                books.category = data.category;
+                books.publisher = data.publisher;
+                book.total_amount = data.total_amount;
+                books.current_number = data.current_number;
+                books.total_lost = data.total_lost;
+
+                await book.save();
+                resolve();
+            } else {
+                resolve();
+            }
+            
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let getBookInfoId = () => {
+
+}
+
+
 
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
+    getBookInfoId: getBookInfoId,
+    updateUser: updateUser,
 };
