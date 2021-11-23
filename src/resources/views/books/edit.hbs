@@ -1,0 +1,33 @@
+{{!-- Thử bằng bootstrap --}}
+{{!-- sửa --}}
+<div class="mt-4">
+    <h3>Sửa thông tin sách</h3>
+
+    <form action="/post-login" method="POST">
+        <div class="form-group">
+            <label for="exampleInputName1">Tên</label>
+            <input type="name" class="form-control" id="exampleInputName1" name="name" aria-describedby="nameHelp" placeholder="Enter name" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputCategory">Thể loại</label>
+            <input type="category" class="form-control" id="exampleInputCategory" name="category" aria-describedby="categoryHelp" placeholder="Enter category" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPublisher">Nhà xuất bản</label>
+            <input type="publisher" class="form-control" id="exampleInputPublisher" name="publisher" aria-describedby="publisherHelp" placeholder="Enter publisher" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputTotalAmount">Tổng số sách</label>
+            <input type="total_amount" class="form-control" id="exampleInputTotal_amount" name="total_amount" aria-describedby="total_amountHelp" placeholder="Enter total_amount" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputCurrent_number">Số sách hiện tại</label>
+            <input type="current_number" class="form-control" id="exampleInputCurrent_number" name="current_number" placeholder="Enter current_number" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputTotal_lost">Số sách đã mất</label>
+            <input type="total_lost" class="form-control" id="exampleInputTotal_lost" name="total_lost" placeholder="Enter total_lost" >
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

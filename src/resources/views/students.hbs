@@ -1,5 +1,28 @@
-<h1>Sinh viên</h1>
-<p>
-    {{!-- hiển thị database table books --}}
-    {{data}}
-</p>
+<table style="width:100%" >
+  <tr>
+    <th>MSSV</th>
+    <th>Họ</th>
+    <th>Tên</th>
+    <th>Lớp</th>
+    <th>Khoa</th>
+    <th>Địa chỉ</th>
+    <th>Số ĐT</th>
+    <th>Ngày vào trường</th>
+    <th>Ngày ra trường</th>
+  </tr>
+
+    {{#each dataTable}} 
+        <tr>
+            <td>{{this.MSSV}}</td>
+            <td>{{this.firstName}}</td>
+            <td>{{this.lastName}}</td>
+            <td>{{this.class}}</td>
+            <td>{{this.faculty}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.phoneNumber}}</td>
+            <td>{{this.create_date}}</td>
+            <td>{{this.expire_date}}</td>
+        </tr>
+    {{/each}}
+    
+</table>

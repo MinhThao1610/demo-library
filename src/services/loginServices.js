@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const db = require('../models/index');
 const salt = bcrypt.genSaltSync(10);
 
-
+// đăng ký
 let createNewUser = async (data) =>  {
 
     return new Promise(async(resolve, reject) => {
@@ -26,28 +26,42 @@ let createNewUser = async (data) =>  {
 }
 
 // hash password hiện đang lỗi, làm sau
-// let hashUserPassword = (password) => {
-//     cách 1
-//     return new Promise(async (resolve, reject) => {
-//         try {
-//             let hash = await bcrypt.hashSync(password, salt);
-//             resolve(hash);
-//         } catch (e) {
-//             reject(e);
-//         }
-//     })
+let hashUserPassword = (password) => {
+    //cách 1
+    return new Promise(async (resolve, reject) => {
+        try {
+            let hash = await bcrypt.hashSync(password, salt);
+            resolve(hash);
+        } catch (e) {
+            reject(e);
+        }
+    })
 
-//     cách 2
-//     bcrypt.genSalt(10, function(err, salt) {
-//         bcrypt.hash(password, salt, function(err, hash) {
-//             // Store hash in your password DB.
-//             console.log('hash', hash); // lỗi
+    // cách 2
+    // bcrypt.genSalt(10, function(err, salt) {
+    //     bcrypt.hash(password, salt, function(err, hash) {
+    //         // Store hash in your password DB.
+    //         console.log('hash', hash); // lỗi
 
-//     });
-// });
-        
-// }
+    // });
+};
+  
+// hiển thị thông tin 
+let getAllUser = () => {
+    // hàm Promise() để code thực thi trong hàm ròi mới chạy cái khác
+    return new Promise(async (resolve, reject) => {
+        try {
+            let users = db.books.findAll({
+                raw: true,
+            });
+            resolve(users);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 
 module.exports = {
-    createNewUser: createNewUser
+    createNewUser: createNewUser,
+    getAllUser: getAllUser,
 }

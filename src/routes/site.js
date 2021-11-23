@@ -6,6 +6,7 @@ const siteController = require('../controllers/SiteController');
 
 router.get('/login', siteController.login);
 
+// đăng ký
 router.post('/post-login', siteController.postLogin);
 
 router.get('/', siteController.index);

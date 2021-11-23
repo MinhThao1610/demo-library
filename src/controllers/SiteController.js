@@ -12,6 +12,7 @@ class SiteController {
         res.render('login');
     }
 
+    // đăng ký
     postLogin = async(req, res) => {
         
         // res.render('home');

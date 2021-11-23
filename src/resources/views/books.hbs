@@ -1,5 +1,26 @@
-<h1>Sách</h1>
-<p>
-    {{!-- hiển thị database table books --}}
-    {{data}}
-</p>
+<table style="width:100%" >
+  <tr>
+    <th>Tên sách</th>
+    <th>Thể loại</th>
+    <th>Nhà xuất bản</th>
+    <th>Tổng số lượng</th>
+    <th>Số lượng hiện tại</th>
+    <th>Số lượng đã mất</th>
+  </tr>
+
+    {{#each dataTable}} 
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.category}}</td>
+            <td>{{this.publisher}}</td>
+            <td>{{this.total_amount}}</td>
+            <td>{{this.current_number}}</td>
+            <td>{{this.total_lost}}</td>
+            <td>
+              <a href="/books/{{this.id}}/edit" class="btn btn-link">Sửa</a>
+              <a href="/books/{{this.id}}/delete" class="btn btn-link">Xóa</a>
+            </td>
+        </tr>
+    {{/each}}
+    
+</table>

@@ -1,29 +1,29 @@
 {{!-- Thử bằng bootstrap --}}
-
+{{!-- đăng ký --}}
 <form action="/post-login" method="POST">
 	<div class="form-group">
 		<label for="exampleInputName1">Full name</label>
-		<input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Enter name">
+		<input type="name" class="form-control" id="exampleInputName1" name="fullname" aria-describedby="nameHelp" placeholder="Enter name" >
 	</div>
 	<div class="form-group">
 		<label for="exampleInputEmail1">Email address</label>
-		<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+		<input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email" >
 	</div>
 	<div class="form-group">
 		<label for="exampleInputPhone1">Phone</label>
-		<input type="phone" class="form-control" id="exampleInputPhone1" aria-describedby="phoneHelp" placeholder="Enter phone">
+		<input type="phone" class="form-control" id="exampleInputPhone1" name="phoneNumber" aria-describedby="phoneHelp" placeholder="Enter phone" >
 	</div>
 	<div class="form-group">
 		<label for="exampleInputUser1">User name</label>
-		<input type="user" class="form-control" id="exampleInputUser1" aria-describedby="userHelp" placeholder="Enter user">
+		<input type="user" class="form-control" id="exampleInputUser1" name="username" aria-describedby="userHelp" placeholder="Enter user" >
 	</div>
 	<div class="form-group">
 		<label for="exampleInputPassword1">Password</label>
-		<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+		<input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" >
 	</div>
-	<div class="form-check">
-		<input type="checkbox" class="form-check-input" id="exampleCheck1">
+	{{!-- <div class="form-check">
+		<input type="checkbox" class="form-check-input" id="exampleCheck1" >
 		<label class="form-check-label" for="exampleCheck1">Check me out</label>
-	</div>
+	</div> --}}
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>

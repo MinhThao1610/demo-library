@@ -12,8 +12,14 @@
 
     <link rel="stylesheet" href="/src/resources/css/">
 </head>
+<style>
+    table, th, td {
+    border:1px solid black;
+    }
+</style>
 <body>
     <div class="app">
+        {{!-- k cần header thì xóa dòng: --}}
         {{> header}}
 
         <div class="container">
@@ -21,6 +27,7 @@
         {{!-- body ở đây là body mà ta render bên file index.js --}}
         </div>
         
+        {{!-- k cần footer thì xóa dòng: --}}
         {{> footer}}
     </div>
 

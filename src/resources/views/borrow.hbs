@@ -1,6 +1,22 @@
-<h1>Mượn trả sách</h1>
+<table style="width:100%" >
+  <tr>
+    <th>MSSV</th>
+    <th>Book id</th>
+    <th>Ngày mượn</th>
+    <th>Ngày trả</th>
+    <th>id Người cho mượn</th>
+    <th>chú thích</th>
+  </tr>
 
-<p>
-    {{!-- hiển thị database table borrow_book --}}
-    {{data}}
-</p>
+    {{#each dataTable}} 
+        <tr>
+            <td>{{this.MSSV}}</td>
+            <td>{{this.book_id}}</td>
+            <td>{{this.borrow_date}}</td>
+            <td>{{this.pay_date}}</td>
+            <td>{{this.staff}}</td>
+            <td>{{this.note}}</td>
+        </tr>
+    {{/each}}
+    
+</table>

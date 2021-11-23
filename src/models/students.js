@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
     create_date: DataTypes.DATE,
-    exprire_date: DataTypes.DATE
+    expire_date: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'students',
