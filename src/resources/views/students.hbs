@@ -22,7 +22,14 @@
             <td>{{this.phoneNumber}}</td>
             <td>{{this.create_date}}</td>
             <td>{{this.expire_date}}</td>
+            <td>
+              <a href="/students/edit?id={{this.id}}" class="btl-students edit" >Sửa</a>
+              <a href="/students/delete?id={{this.id}}" class="btl-students delete">Xóa</a>
+            </td>
         </tr>
     {{/each}}
     
 </table>
+<div class="add-student">
+  <a href="/students/add">Thêm</a>
+</div>

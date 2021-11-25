@@ -5,7 +5,7 @@
     <th>Ngày mượn</th>
     <th>Ngày trả</th>
     <th>id Người cho mượn</th>
-    <th>chú thích</th>
+    <th>Chú thích</th>
   </tr>
 
     {{#each dataTable}} 
@@ -16,7 +16,14 @@
             <td>{{this.pay_date}}</td>
             <td>{{this.staff}}</td>
             <td>{{this.note}}</td>
+            <td>
+              <a href="/borrow/edit?id={{this.id}}" class="btn btn-link">Sửa</a>
+              <a href="/borrow/delete?id={{this.id}}" class="btn btn-link">Xóa</a>
+            </td>
         </tr>
     {{/each}}
     
 </table>
+<div class="add-borrow">
+  <a href="/borrow/add">Thêm</a>
+</div>

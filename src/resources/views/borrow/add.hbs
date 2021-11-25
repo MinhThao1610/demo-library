@@ -1,0 +1,29 @@
+{{!-- Thử bằng bootstrap --}}
+{{!-- đăng ký --}}
+<form action="/borrow/post-add" method="POST">
+	<div class="form-group">
+		<label for="exampleInputName1">Mã sinh viên</label>
+		<input type="name" class="form-control" id="exampleInputName1" name="MSSV" aria-describedby="MSSVHelp" placeholder="Enter MSSV" >
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Mã sách</label>
+		<input type="number" class="form-control" id="exampleInputEmail1" name="book_id" aria-describedby="emailHelp" placeholder="Enter book_id" >
+	</div>
+	<div class="form-group">
+		<label for="exampleInputPhone1">Ngày mượn</label>
+		<input type="date" class="form-control" id="exampleInputPhone1" name="borrow_date" aria-describedby="phoneHelp" placeholder="Enter borrow_date" >
+	</div>
+	<div class="form-group">
+		<label for="exampleInputUser1">Ngày trả</label>
+		<input type="date" class="form-control" id="exampleInputUser1" name="pay_date" aria-describedby="userHelp" placeholder="Enter pay_date" >
+	</div>
+	<div class="form-group">
+		<label for="exampleInputPassword1">Nhân viên cho mượn</label>
+		<input type="text" class="form-control" id="exampleInputPassword1" name="staff" placeholder="Enter staff" >
+	</div>
+    <div class="form-group">
+		<label for="exampleInputPassword1">Ghi chú</label>
+		<input type="text" class="form-control" id="exampleInputPassword1" name="note" placeholder="Enter note" >
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>

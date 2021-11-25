@@ -17,7 +17,10 @@ let createNewUser = async (data) => {
                 create_date: data.create_date,
                 expire_date: data.expire_date,
             });
-            resolve('ok');
+            let allStudents = await db.students.findAll({
+                raw: true,
+            });
+            resolve(allStudents);
         } catch (error) {
             reject(error);
         }
@@ -39,7 +42,79 @@ let getAllUser = () => {
     });
 };
 
+let getStudentInfoById = (studentId) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let student = await db.students.findOne({
+                where: {id: studentId},
+                raw: true,
+            })
+
+            if(student) {
+                resolve(student);
+            } else {
+                resolve({});
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+// cập nhật
+let updateUser = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let student = await db.students.findOne({
+                where: {id: data.id}
+            })
+            if(student) {
+                student.MSSV = data.MSSV;
+                student.firstName = data.firstName;
+                student.lastName = data.lastName;
+                student.class = data.class;
+                student.faculty = data.faculty;
+                student.address = data.address;
+                student.phoneNumber = data.phoneNumber;
+                student.create_date = data.create_date;
+                student.expire_date = data.expire_date;
+
+                await student.save();
+                let allStudents = await db.students.findAll({
+                    raw: true,
+                });
+                resolve(allStudents);
+            } else {
+                resolve();
+            }
+            
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+// Xóa
+let deleteStudentById = (studentId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let student = await db.students.findOne({
+                where: {id: studentId}
+            })
+            if(student) {
+               await student.destroy();
+            }
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
+    getStudentInfoById: getStudentInfoById,
+    updateUser: updateUser,
+    deleteStudentById: deleteStudentById,
 };

@@ -18,7 +18,8 @@ class SiteController {
 
         let message = await loginServices.createNewUser(req.body);
         console.log(message);
-        return res.send('post login from server');
+        // return res.send('post login from server');
+        return res.render('home');
     };
 }
 

@@ -46,21 +46,21 @@ let hashUserPassword = (password) => {
 };
 
 // hiển thị thông tin
-let getAllUser = () => {
-    // hàm Promise() để code thực thi trong hàm ròi mới chạy cái khác
-    return new Promise(async (resolve, reject) => {
-        try {
-            let users = db.books.findAll({
-                raw: true,
-            });
-            resolve(users);
-        } catch (error) {
-            reject(error);
-        }
-    });
-};
+// let getAllUser = () => {
+//     // hàm Promise() để code thực thi trong hàm ròi mới chạy cái khác
+//     return new Promise(async (resolve, reject) => {
+//         try {
+//             let users = db.books.findAll({
+//                 raw: true,
+//             });
+//             resolve(users);
+//         } catch (error) {
+//             reject(error);
+//         }
+//     });
+// };
 
 module.exports = {
     createNewUser: createNewUser,
-    getAllUser: getAllUser,
+    // getAllUser: getAllUser,
 };

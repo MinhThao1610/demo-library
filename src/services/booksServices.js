@@ -14,7 +14,10 @@ let createNewUser = async (data) => {
                 current_number: data.current_number,
                 total_lost: data.total_lost,
             });
-            resolve('ok');
+            let allBoooks = await db.books.findAll({
+                raw: true,
+            });
+            resolve(allBoooks);
         } catch (error) {
             reject(error);
         }
@@ -30,11 +33,32 @@ let getAllUser = () => {
                 raw: true,
             });
             resolve(users);
+            
         } catch (error) {
             reject(error);
         }
     });
 };
+
+
+let getBookInfoById = (bookId) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let book = await db.books.findOne({
+                where: {id: bookId},
+                raw: true,
+            })
+
+            if(book) {
+                resolve(book);
+            } else {
+                resolve({});
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 
 // cập nhật
 let updateUser = (data) => {
@@ -44,15 +68,18 @@ let updateUser = (data) => {
                 where: {id: data.id}
             })
             if(book) {
-                books.name = data.name;
-                books.category = data.category;
-                books.publisher = data.publisher;
+                book.name = data.name;
+                book.category = data.category;
+                book.publisher = data.publisher;
                 book.total_amount = data.total_amount;
-                books.current_number = data.current_number;
-                books.total_lost = data.total_lost;
+                book.current_number = data.current_number;
+                book.total_lost = data.total_lost;
 
                 await book.save();
-                resolve();
+                let allBoooks = await db.books.findAll({
+                    raw: true,
+                });
+                resolve(allBoooks);
             } else {
                 resolve();
             }
@@ -60,18 +87,30 @@ let updateUser = (data) => {
         } catch (error) {
             reject(error);
         }
-    })
+    });
 }
 
-let getBookInfoId = () => {
-
+// Xóa
+let deleteBookById = (bookId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let book = await db.books.findOne({
+                where: {id: bookId}
+            })
+            if(book) {
+               await book.destroy();
+            }
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
+    });
 }
-
-
 
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
-    getBookInfoId: getBookInfoId,
+    getBookInfoById: getBookInfoById,
     updateUser: updateUser,
+    deleteBookById: deleteBookById,
 };

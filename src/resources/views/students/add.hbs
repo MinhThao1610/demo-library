@@ -1,0 +1,41 @@
+{{!-- Thử bằng bootstrap --}}
+{{!-- đăng ký --}}
+<form action="/students/post-add" method="POST">
+	<div class="form-group">
+		<label for="exampleInputName1">Mã sinh viên</label>
+		<input type="name" class="form-control" id="exampleInputName1" name="MSSV" aria-describedby="MSSVHelp" placeholder="Enter MSSV" >
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Họ</label>
+		<input type="text" class="form-control" id="exampleInputEmail1" name="firstName" aria-describedby="emailHelp" placeholder="Enter firstName" >
+	</div>
+	<div class="form-group">
+		<label for="exampleInputPhone1">Tên</label>
+		<input type="text" class="form-control" id="exampleInputPhone1" name="lastName" aria-describedby="phoneHelp" placeholder="Enter lastName" >
+	</div>
+	<div class="form-group">
+		<label for="exampleInputUser1">Lớp</label>
+		<input type="number" class="form-control" id="exampleInputUser1" name="class" aria-describedby="userHelp" placeholder="Enter class" >
+	</div>
+	<div class="form-group">
+		<label for="exampleInputPassword1">Khoa</label>
+		<input type="text" class="form-control" id="exampleInputPassword1" name="faculty" placeholder="Enter faculty" >
+	</div>
+    <div class="form-group">
+		<label for="exampleInputPassword1">Địa chỉ</label>
+		<input type="text" class="form-control" id="exampleInputPassword1" name="address" placeholder="Enter address" >
+	</div>
+    <div class="form-group">
+		<label for="exampleInputPassword1">Số điện thoại</label>
+		<input type="text" class="form-control" id="exampleInputPassword1" name="phoneNumber" placeholder="Enter phoneNumber" >
+	</div>
+    <div class="form-group">
+		<label for="exampleInputPassword1">Ngày nhập học</label>
+		<input type="date" class="form-control" id="exampleInputPassword1" name="create_date" placeholder="Enter create_date" >
+	</div>
+    <div class="form-group">
+		<label for="exampleInputPassword1">Ngày ra trường</label>
+		<input type="date" class="form-control" id="exampleInputPassword1" name="expire_date" placeholder="Enter expire_date" >
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>

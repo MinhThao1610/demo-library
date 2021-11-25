@@ -11,9 +11,11 @@ router.get('/add', booksController.add);
 //lưu thông tin thêm
 router.post('/post-add', booksController.postAdd);
 
-router.get('/:id/edit', booksController.edit);
+router.get('/edit', booksController.edit);
 
-router.get('/:id/detele', booksController.delete);
+router.post('/put-book', booksController.putBook);
+
+router.get('/delete', booksController.deleteBook);
 
 router.get('/', booksController.index);
 

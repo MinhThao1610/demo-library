@@ -1,0 +1,34 @@
+{{!-- Thử bằng bootstrap --}}
+{{!-- sửa --}}
+<div class="mt-4">
+    <h3>Sửa thông tin mượn sách</h3>
+
+    <form action="/borrow/put-borrow" method="POST">
+        <div class="form-group">
+            <label for="exampleInputName1">Mã sinh viên</label>
+            <input type="name" class="form-control" id="exampleInputName1" name="MSSV" aria-describedby="MSSVHelp" placeholder="Enter MSSV" value="{{borrow.MSSV}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputCategory">Mã sách</label>
+            <input type="category" class="form-control" id="exampleInputCategory" name="book_id" aria-describedby="book_idHelp" placeholder="Enter book_id" value="{{borrow.book_id}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPublisher">Ngày mượn</label>
+            <input type="publisher" class="form-control" id="exampleInputPublisher" name="borrow_date" aria-describedby="borrow_dateHelp" placeholder="Enter borrow_date" value="{{borrow.borrow_date}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputTotalAmount">Ngày trả</label>
+            <input type="total_amount" class="form-control" id="exampleInputTotal_amount" name="pay_date" aria-describedby="pay_dateHelp" placeholder="Enter pay_date" value="{{borrow.pay_date}}" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputCurrent_number">Người cho mượn</label>
+            <input type="current_number" class="form-control" id="exampleInputCurrent_number" name="staff" placeholder="Enter staff" value="{{borrow.staff}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputTotal_lost">Ghi chú</label>
+            <input type="total_lost" class="form-control" id="exampleInputTotal_lost" name="note" placeholder="Enter note" value="{{borrow.note}}">
+        </div>
+        <input type="text" name="id" value="{{borrow.id}}" hidden>
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+    </form>
+</div>

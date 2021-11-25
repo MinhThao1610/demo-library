@@ -1,0 +1,46 @@
+{{!-- Thử bằng bootstrap --}}
+{{!-- sửa --}}
+<div class="mt-4">
+    <h3>Sửa thông tin sinh viên</h3>
+
+    <form action="/students/put-student" method="POST">
+        <div class="form-group">
+            <label for="exampleInputMSSV1">Mã sinh viên</label>
+            <input type="mssv" class="form-control" id="exampleInputMSSV1" name="MSSV" aria-describedby="mssvHelp" placeholder="Enter name" value="{{student.MSSV}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Họ</label>
+            <input type="name" class="form-control" id="exampleInputName1" name="firstName" aria-describedby="nameHelp" placeholder="Enter name" value="{{student.firstName}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName1">Tên</label>
+            <input type="name" class="form-control" id="exampleInputName1" name="lastName" aria-describedby="nameHelp" placeholder="Enter name" value="{{student.lastName}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputCategory">Lớp</label>
+            <input type="category" class="form-control" id="exampleInputCategory" name="class" aria-describedby="categoryHelp" placeholder="Enter category" value="{{student.class}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPublisher">Khoa</label>
+            <input type="publisher" class="form-control" id="exampleInputPublisher" name="faculty" aria-describedby="facultyHelp" placeholder="Enter faculty" value="{{student.faculty}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputTotalAmount">Địa chỉ</label>
+            <input type="total_amount" class="form-control" id="exampleInputTotal_amount" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="{{student.address}}" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputCurrent_number">Số điện thoại</label>
+            <input type="current_number" class="form-control" id="exampleInputCurrent_number" name="phoneNumber" placeholder="Enter phoneNumber" value="{{student.phoneNumber}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputCurrent_number">Ngày vào trường</label>
+            <input type="current_number" class="form-control" id="exampleInputCurrent_number" name="create_date" placeholder="Enter create_date" value="{{student.create_date}}">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputCurrent_number">Ngày ra trường</label>
+            <input type="current_number" class="form-control" id="exampleInputCurrent_number" name="expire_date" placeholder="Enter expire_date" value="{{student.expire_date}}">
+        </div>
+        <input type="text" name="id" value="{{student.id}}" hidden>
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+    </form>
+</div>

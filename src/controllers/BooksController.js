@@ -25,38 +25,60 @@ class BooksController {
     };
 
     // [GET] /books/:slug
-    show = (req, res) => {
-        res.send('Books detail!!!');
-    };
+    // show = (req, res) => {
+    //     res.send('Books detail!!!');
+    // };
 
     add = (req, res) => {
-        res.render('add');
+        res.render('books/add');
     };
 
     postAdd = async (req, res) => {
         let message = await booksServices.createNewUser(req.body);
         console.log(message);
-        return res.render('books');
+        return res.render('books', {
+            dataTable: message,
+        });
     };
 
-    edit = (req, res) => {
-        // let bookId = req.query.id;
-        // if(bookId) {
-        //     let bookData = booksServices.getBookInfoId(bookId);
-        // } else {
-        //     console.log('error');
-        // }
-
-         res.render('books/edit');
+    edit = async (req, res) => {
+        let bookId = req.query.id;
+        if(bookId) {
+            let bookData = await booksServices.getBookInfoById(bookId);
+            res.render('books/edit', {
+                book: bookData,
+            });
+            // return res.send('ok')
+        } else {
+            // console.log('error');
+            return res.send('error')
+        }
     };
 
+    putBook = async (req, res) => {
+        let data = req.body;
+        let allBoooks = await booksServices.updateUser(data);
+
+        return res.render('books', {
+            dataTable: allBoooks,
+        });
+    }
     
-
-
-
-    delete = (req, res) => {
-        res.render('books/delete');
+    deleteBook = async (req, res) => {
+        let id = req.query.id;
+        if(id) {
+            await booksServices.deleteBookById(id);
+            let data = await booksServices.getAllUser();
+            console.log(data);
+            return res.render('books', {
+                dataTable: data,
+            });
+            // return res.render('books');
+        } else {
+            return res.send('error');
+        }
     };
 }
 
 module.exports = new BooksController();
+

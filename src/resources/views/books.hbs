@@ -17,10 +17,13 @@
             <td>{{this.current_number}}</td>
             <td>{{this.total_lost}}</td>
             <td>
-              <a href="/books/{{this.id}}/edit" class="btn btn-link">Sửa</a>
-              <a href="/books/{{this.id}}/delete" class="btn btn-link">Xóa</a>
+              <a href="/books/edit?id={{this.id}}" class="btn btn-link">Sửa</a>
+              <a href="/books/delete?id={{this.id}}" class="btn btn-link">Xóa</a>
             </td>
         </tr>
     {{/each}}
     
 </table>
+<div class="add-book">
+  <a href="/books/add">Thêm</a>
+</div>

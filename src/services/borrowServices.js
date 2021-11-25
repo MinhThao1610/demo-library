@@ -14,7 +14,10 @@ let createNewUser = async (data) => {
                 staff: data.staff,
                 note: data.note,
             });
-            resolve('ok');
+            let allBorrows = await db.borrow_books.findAll({
+                raw: true,
+            });
+            resolve(allBorrows);
         } catch (error) {
             reject(error);
         }
@@ -36,7 +39,75 @@ let getAllUser = () => {
     });
 };
 
+let getBorrowInfoById = (borrowId) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let borrow = await db.borrow_books.findOne({
+                where: {id: borrowId},
+                raw: true,
+            })
+
+            if(borrow) {
+                resolve(borrow);
+            } else {
+                resolve({});
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+// cập nhật
+let updateUser = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let borrow = await db.borrow_books.findOne({
+                where: {id: data.id}
+            })
+            if(borrow) {
+                borrow.MSSV = data.MSSV;
+                borrow.book_id = data.book_id;
+                borrow.borrow_date = data.borrow_date;
+                borrow.pay_date = data.pay_date;
+                borrow.staff = data.staff;
+                borrow.note = data.note;
+
+                await borrow.save();
+                let allBorrows = await db.borrow_books.findAll({
+                    raw: true,
+                });
+                resolve(allBorrows);
+            } else {
+                resolve();
+            }
+            
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let deleteBorrowById = (borrowId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let borrow = await db.borrow_books.findOne({
+                where: {id: borrowId}
+            })
+            if(borrow) {
+               await borrow.destroy();
+            }
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
+    getBorrowInfoById: getBorrowInfoById,
+    updateUser: updateUser,
+    deleteBorrowById: deleteBorrowById,
 };
