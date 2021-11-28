@@ -6,22 +6,19 @@ const salt = bcrypt.genSaltSync(10);
 let createNewUser = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
+            let hashPasswordFromBcrypt = await hashUserPassword(data.password);
             await db.staffs.create({
                 fullname: data.fullname,
                 email: data.email,
                 phoneNumber: data.phoneNumber,
                 username: data.username,
-                password: data.password,
+                password: hashPasswordFromBcrypt,
             });
             resolve('ok');
         } catch (error) {
             reject(error);
         }
     });
-
-    // let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-    // console.log('data from services');
-    // console.log(data);
 };
 
 // hash password hiện đang lỗi, làm sau
@@ -31,8 +28,8 @@ let hashUserPassword = (password) => {
         try {
             let hash = await bcrypt.hashSync(password, salt);
             resolve(hash);
-        } catch (e) {
-            reject(e);
+        } catch (error) {
+            reject(error);
         }
     });
 
