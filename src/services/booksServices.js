@@ -107,10 +107,16 @@ let deleteBookById = (bookId) => {
     });
 }
 
+// API hiển thị
+let getAllBooks = () => {
+
+}
+
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
     getBookInfoById: getBookInfoById,
     updateUser: updateUser,
     deleteBookById: deleteBookById,
+    getAllBooks: getAllBooks,
 };

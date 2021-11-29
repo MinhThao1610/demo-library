@@ -17,6 +17,9 @@ router.post('/put-book', booksController.putBook);
 
 router.get('/delete', booksController.deleteBook);
 
+// api hiển thị thông tin
+router.get('/api', booksController.handleGetAllBooks);
+
 router.get('/', booksController.index);
 
 module.exports = router;

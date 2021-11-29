@@ -78,6 +78,10 @@ class BooksController {
             return res.send('error');
         }
     };
+
+    handleGetAllBooks = async (req, res) => {
+        let books = await booksServices.getAllBooks();
+    }
 }
 
 module.exports = new BooksController();

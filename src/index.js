@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const Sequelize = require('sequelize');
+const cors = require('cors');
 const path = require('path');
 const app = express();
 const port = 3000;
@@ -9,19 +10,14 @@ const port = 3000;
 const route = require('./routes');
 const db = require('./config');
 
+// cors
+app.use(cors({
+    origin: true
+}));
+
 // Connect to DB
 db.connectBD();
-// app.get("/liststaff", function(req, res) {
-//     db.getAllUser(function(resultQuyery) {
-//         res.json(resultQuyery);
-//     });
-// });
 
-// app.get('/search', (req, res) => {
-//     res.render('search');
-// });
-
-// cấu hình lại file tĩnh
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
