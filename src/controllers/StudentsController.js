@@ -1,5 +1,6 @@
 const db = require('../models/index');
 const studentsServices = require('../services/studentsServices');
+const apiStudentsServices = require('../services/apiStudentsServices');
 
 class StudentsController {
     // [GET] /students
@@ -66,6 +67,28 @@ class StudentsController {
             return res.send('error');
         }
     };
+
+
+    // api hiển thị 
+    AllStudents = async (req, res) => {
+        let MSSV = req.query.MSSV; // truyền vào all hoặc MSSV
+
+        if(!MSSV) {
+            return res.status(200).json({
+                errCode: 1,
+                errMessage: 'Chưa truyền vào MSSV',
+                students: []
+            })
+        }
+
+        let students = await apiStudentsServices.getAllStudents(MSSV);
+
+        return res.status(200).json({
+            errCode: 0,
+            errMessage: 'OK',
+            students
+        })
+    }
 }
 
 module.exports = new StudentsController();

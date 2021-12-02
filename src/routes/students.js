@@ -17,6 +17,9 @@ router.post('/put-student', studentsController.putStudent);
 
 router.get('/delete', studentsController.delete);
 
+// api hiển thị thông tin, đường dẫn lấy api bên frontend: `/students/api?MSSV=${MSSV truyền vào}`
+router.get('/api', studentsController.AllStudents);
+
 // router.get('/:slug', studentsController.show);
 
 router.get('/', studentsController.index);

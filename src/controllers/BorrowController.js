@@ -1,6 +1,6 @@
 const db = require('../models/index');
 const borrowServices = require('../services/borrowServices');
-
+const apiBorrowServices = require('../services/apiBorrowServices');
 class BorrowController {
     // [GET] /borrow
     index = async (req, res) => {
@@ -66,6 +66,27 @@ class BorrowController {
             return res.send('error');
         }
     };
+
+    // api hiển thị 
+    AllBorrow = async (req, res) => {
+        let id = req.query.id; // truyền vào all hoặc id
+
+        if(!id) {
+            return res.status(200).json({
+                errCode: 1,
+                errMessage: 'Chưa truyền vào id',
+                borrow: []
+            })
+        }
+
+        let borrow = await apiBorrowServices.getAllBorrow(id);
+
+        return res.status(200).json({
+            errCode: 0,
+            errMessage: 'OK',
+            borrow
+        })
+    }
 }
 
 module.exports = new BorrowController();

@@ -80,7 +80,7 @@ class BooksController {
         }
     };
 
-    // api hiển thị -> giống tìm kiếm
+    // api hiển thị 
     AllBooks = async (req, res) => {
         let id = req.query.id; // truyền vào all hoặc id
 

@@ -17,6 +17,9 @@ router.post('/put-borrow', borrowController.putBorrow);
 
 router.get('/delete', borrowController.delete);
 
+// api hiển thị thông tin, đường dẫn lấy api bên frontend: `/borrow/api?id=${id truyền vào}`
+router.get('/api', borrowController.AllBorrow);
+
 router.get('/', borrowController.index);
 
 module.exports = router;
