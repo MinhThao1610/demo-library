@@ -73,7 +73,78 @@ let addNewStudent = (data) => {
     });
 };
 
+// xóa
+let deleteStudent = (mssv) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let student = await db.students.findOne({
+                where: { MSSV: mssv }
+            });
+            if(!student) {
+                resolve({
+                    errCode: 2,
+                    errMessage: 'Không tồn tại',
+                })
+            }
+            await db.students.destroy({
+                where: {MSSV: mssv}
+            })
+            resolve({
+                errCode: 0,
+                errMessage: 'Đã xóa sinh viên',
+            });
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+// sửa
+let updateStudent = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if(!data.MSSV) {
+                resolve({
+                    errCode: 2,
+                    errMessage: 'Thiếu thông số đầu vào',
+                })
+            }
+
+            let student = await db.students.findOne({
+                where: { MSSV: data.MSSV },
+                raw: false
+            });
+            if (student) {
+                student.MSSV = data.MSSV;
+                student.firstName = data.firstName;
+                student.lastName = data.lastName;
+                student.class = data.class;
+                student.faculty = data.faculty;
+                student.address = data.address;
+                student.phoneNumber = data.phoneNumber;
+                student.create_date = data.create_date;
+                student.expire_date = data.expire_date;
+
+                await student.save();
+                resolve({
+                    errCode: 0,
+                    message: 'Cập nhật thành công!',
+                })
+            } else {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Không tồn tại',
+                });
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     getAllStudents: getAllStudents,
     addNewStudent: addNewStudent,
+    deleteStudent: deleteStudent,
+    updateStudent: updateStudent,
 };

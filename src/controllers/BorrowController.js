@@ -94,6 +94,25 @@ class BorrowController {
         console.log(message);
         return res.status(200).json(message);
     };
+
+    // api xóa
+    apiDeleteBorrow = async (req, res) => {
+        if(!req.body.id) {
+            return res.status(200).json({
+                errCode: 1,
+                errMessage: "Thiếu thông số bắt buộc"
+            })
+        }
+        let message = await apiBorrowServices.deleteBorrow(req.body.id);
+        return res.status(200).json(message);
+    }
+
+    // api sửa
+    apiEditBorrow = async (req,res) => {
+        let data = req.body;
+        let message = await apiBorrowServices.updateBorrow(data);
+        return res.status(200).json(message);
+    }
 }
 
 module.exports = new BorrowController();

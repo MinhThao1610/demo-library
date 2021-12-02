@@ -3,6 +3,18 @@ const router = express.Router();
 
 const studentsController = require('../controllers/StudentsController');
 
+// api thêm sinh viên, đường dẫn: /students/api/add
+router.post('/api/add', studentsController.apiAddStudent);
+
+// api sửa sinh viên, đường dẫn: students/api/edit
+router.put('/api/edit', studentsController.apiEditStudent);
+
+// api xóa sinh viên, đường dẫn: student/api/delete
+router.delete('/api/delete', studentsController.apiDeleteStudent);
+
+// api hiển thị thông tin, đường dẫn lấy api bên frontend: `/students/api?MSSV=${MSSV truyền vào}`
+router.get('/api', studentsController.AllStudents);
+
 //vào trang thêm
 router.get('/add', studentsController.add);
 
@@ -14,12 +26,6 @@ router.get('/edit', studentsController.edit);
 router.post('/put-student', studentsController.putStudent);
 
 router.get('/delete', studentsController.delete);
-
-// api thêm sinh viên, đường dẫn: /students/api/add
-router.post('/api/add', studentsController.apiAddStudent);
-
-// api hiển thị thông tin, đường dẫn lấy api bên frontend: `/students/api?MSSV=${MSSV truyền vào}`
-router.get('/api', studentsController.AllStudents);
 
 // router.get('/:slug', studentsController.show);
 

@@ -9,10 +9,10 @@ const booksController = require('../controllers/BooksController');
 router.post('/api/add', booksController.apiAddBook);
 
 // api sửa sách, đường dẫn: books/api/edit
-router.put('api/edit', booksController.apiEditBook);
+router.put('/api/edit', booksController.apiEditBook);
 
 // api xóa sách, đường dẫn: books/api/delete
-router.delete('api/delete', booksController.apiDeleteBook);
+router.delete('/api/delete', booksController.apiDeleteBook);
 
 // api hiển thị thông tin, đường dẫn lấy api bên frontend: `/books/api?id=${id truyền vào}`
 router.get('/api', booksController.AllBooks);
