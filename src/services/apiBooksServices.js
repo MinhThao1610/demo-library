@@ -110,7 +110,75 @@ let addNewBook = (data) => {
     });
 };
 
+// xóa
+let deleteBook = (bookId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let book = await db.books.findOne({
+                where: { id: bookId }
+            });
+            if(!book) {
+                resolve({
+                    errCode: 2,
+                    errMessage: 'Không tồn tại',
+                })
+            }
+            await db.books.destroy({
+                where: {id: bookId}
+            })
+            resolve({
+                errCode: 0,
+                errMessage: 'Đã xóa sách',
+            });
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+// sửa
+let updateBook = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if(!data.id) {
+                resolve({
+                    errCode: 2,
+                    errMessage: 'Thiếu thông số đầu vào',
+                })
+            }
+
+            let book = await db.books.findOne({
+                where: { id: data.id },
+                raw: false
+            });
+            if (book) {
+                book.name = data.name;
+                book.category = data.category;
+                book.publisher = data.publisher;
+                book.total_amount = data.total_amount;
+                book.current_number = data.current_number;
+                book.total_lost = data.total_lost;
+
+                await book.save();
+                resolve({
+                    errCode: 0,
+                    message: 'Cập nhật thành công!',
+                })
+            } else {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Không tồn tại',
+                });
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     getAllBooks: getAllBooks,
     addNewBook: addNewBook,
+    deleteBook: deleteBook,
+    updateBook: updateBook,
 };

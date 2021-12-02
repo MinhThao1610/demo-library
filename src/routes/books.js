@@ -5,6 +5,18 @@ const booksController = require('../controllers/BooksController');
 
 // router.get('/:slug', booksController.show);
 
+// api thêm sách, đường dẫn: /books/api/add
+router.post('/api/add', booksController.apiAddBook);
+
+// api sửa sách, đường dẫn: books/api/edit
+router.put('api/edit', booksController.apiEditBook);
+
+// api xóa sách, đường dẫn: books/api/delete
+router.delete('api/delete', booksController.apiDeleteBook);
+
+// api hiển thị thông tin, đường dẫn lấy api bên frontend: `/books/api?id=${id truyền vào}`
+router.get('/api', booksController.AllBooks);
+
 //vào trang thêm /books/add
 router.get('/add', booksController.add);
 
@@ -17,11 +29,7 @@ router.post('/put-book', booksController.putBook);
 
 router.get('/delete', booksController.deleteBook);
 
-// api thêm sách, đường dẫn: /books/api/add
-router.post('/api/add', booksController.apiAddBook);
 
-// api hiển thị thông tin, đường dẫn lấy api bên frontend: `/books/api?id=${id truyền vào}`
-router.get('/api', booksController.AllBooks);
 
 router.get('/', booksController.index);
 

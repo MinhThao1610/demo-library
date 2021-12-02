@@ -107,6 +107,25 @@ class BooksController {
         console.log(message);
         return res.status(200).json(message);
     };
+
+    // api xóa
+    apiDeleteBook = async (req, res) => {
+        if(!req.body.id) {
+            return res.status(200).json({
+                errCode: 1,
+                errMessage: "Thiếu thông số bắt buộc"
+            })
+        }
+        let message = await apiBooksServices.deleteBook(req.body.id);
+        return res.status(200).json(message);
+    }
+
+    // api sửa
+    apiEditBook = async (req,res) => {
+        let data = req.body;
+        let message = await apiBooksServices.updateBook(data);
+        return res.status(200).json(message);
+    }
 }
 
 module.exports = new BooksController();
