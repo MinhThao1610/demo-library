@@ -29,8 +29,6 @@ router.post('/put-book', booksController.putBook);
 
 router.get('/delete', booksController.deleteBook);
 
-
-
 router.get('/', booksController.index);
 
 module.exports = router;

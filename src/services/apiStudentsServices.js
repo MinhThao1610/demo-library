@@ -78,17 +78,17 @@ let deleteStudent = (mssv) => {
     return new Promise(async (resolve, reject) => {
         try {
             let student = await db.students.findOne({
-                where: { MSSV: mssv }
+                where: { MSSV: mssv },
             });
-            if(!student) {
+            if (!student) {
                 resolve({
                     errCode: 2,
                     errMessage: 'Không tồn tại',
-                })
+                });
             }
             await db.students.destroy({
-                where: {MSSV: mssv}
-            })
+                where: { MSSV: mssv },
+            });
             resolve({
                 errCode: 0,
                 errMessage: 'Đã xóa sinh viên',
@@ -96,23 +96,23 @@ let deleteStudent = (mssv) => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 // sửa
 let updateStudent = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if(!data.MSSV) {
+            if (!data.MSSV) {
                 resolve({
                     errCode: 2,
                     errMessage: 'Thiếu thông số đầu vào',
-                })
+                });
             }
 
             let student = await db.students.findOne({
                 where: { MSSV: data.MSSV },
-                raw: false
+                raw: false,
             });
             if (student) {
                 student.MSSV = data.MSSV;
@@ -129,7 +129,7 @@ let updateStudent = (data) => {
                 resolve({
                     errCode: 0,
                     message: 'Cập nhật thành công!',
-                })
+                });
             } else {
                 resolve({
                     errCode: 1,
@@ -139,8 +139,8 @@ let updateStudent = (data) => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 module.exports = {
     getAllStudents: getAllStudents,

@@ -115,17 +115,17 @@ let deleteBook = (bookId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let book = await db.books.findOne({
-                where: { id: bookId }
+                where: { id: bookId },
             });
-            if(!book) {
+            if (!book) {
                 resolve({
                     errCode: 2,
                     errMessage: 'Không tồn tại',
-                })
+                });
             }
             await db.books.destroy({
-                where: {id: bookId}
-            })
+                where: { id: bookId },
+            });
             resolve({
                 errCode: 0,
                 errMessage: 'Đã xóa sách',
@@ -133,23 +133,23 @@ let deleteBook = (bookId) => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 // sửa
 let updateBook = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if(!data.id) {
+            if (!data.id) {
                 resolve({
                     errCode: 2,
                     errMessage: 'Thiếu thông số đầu vào',
-                })
+                });
             }
 
             let book = await db.books.findOne({
                 where: { id: data.id },
-                raw: false
+                raw: false,
             });
             if (book) {
                 book.name = data.name;
@@ -163,7 +163,7 @@ let updateBook = (data) => {
                 resolve({
                     errCode: 0,
                     message: 'Cập nhật thành công!',
-                })
+                });
             } else {
                 resolve({
                     errCode: 1,
@@ -173,8 +173,8 @@ let updateBook = (data) => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 module.exports = {
     getAllBooks: getAllBooks,

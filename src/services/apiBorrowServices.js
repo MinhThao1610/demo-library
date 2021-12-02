@@ -75,17 +75,17 @@ let deleteBorrow = (borrowId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let borrow = await db.borrow_books.findOne({
-                where: { id: borrowId }
+                where: { id: borrowId },
             });
-            if(!borrow) {
+            if (!borrow) {
                 resolve({
                     errCode: 2,
                     errMessage: 'Không tồn tại',
-                })
+                });
             }
             await db.borrow_books.destroy({
-                where: {id: borrowId}
-            })
+                where: { id: borrowId },
+            });
             resolve({
                 errCode: 0,
                 errMessage: 'Đã xóa sách',
@@ -93,23 +93,23 @@ let deleteBorrow = (borrowId) => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 // sửa
 let updateBorrow = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if(!data.id) {
+            if (!data.id) {
                 resolve({
                     errCode: 2,
                     errMessage: 'Thiếu thông số đầu vào',
-                })
+                });
             }
 
             let borrow = await db.borrow_books.findOne({
                 where: { id: data.id },
-                raw: false
+                raw: false,
             });
             if (borrow) {
                 borrow.MSSV = data.MSSV;
@@ -123,7 +123,7 @@ let updateBorrow = (data) => {
                 resolve({
                     errCode: 0,
                     message: 'Cập nhật thành công!',
-                })
+                });
             } else {
                 resolve({
                     errCode: 1,
@@ -133,8 +133,8 @@ let updateBorrow = (data) => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 module.exports = {
     getAllBorrow: getAllBorrow,
