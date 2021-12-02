@@ -40,14 +40,14 @@ let getAllUser = () => {
 };
 
 let getBorrowInfoById = (borrowId) => {
-    return new Promise(async(resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             let borrow = await db.borrow_books.findOne({
-                where: {id: borrowId},
+                where: { id: borrowId },
                 raw: true,
-            })
+            });
 
-            if(borrow) {
+            if (borrow) {
                 resolve(borrow);
             } else {
                 resolve({});
@@ -55,17 +55,17 @@ let getBorrowInfoById = (borrowId) => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 // cập nhật
 let updateUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let borrow = await db.borrow_books.findOne({
-                where: {id: data.id}
-            })
-            if(borrow) {
+                where: { id: data.id },
+            });
+            if (borrow) {
                 borrow.MSSV = data.MSSV;
                 borrow.book_id = data.book_id;
                 borrow.borrow_date = data.borrow_date;
@@ -81,28 +81,27 @@ let updateUser = (data) => {
             } else {
                 resolve();
             }
-            
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 let deleteBorrowById = (borrowId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let borrow = await db.borrow_books.findOne({
-                where: {id: borrowId}
-            })
-            if(borrow) {
-               await borrow.destroy();
+                where: { id: borrowId },
+            });
+            if (borrow) {
+                await borrow.destroy();
             }
             resolve();
         } catch (error) {
             reject(error);
         }
     });
-}
+};
 
 module.exports = {
     createNewUser: createNewUser,

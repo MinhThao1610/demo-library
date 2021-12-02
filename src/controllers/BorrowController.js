@@ -26,13 +26,13 @@ class BorrowController {
         let message = await borrowServices.createNewUser(req.body);
         console.log(message);
         return res.render('borrow', {
-            dataTable:message,
+            dataTable: message,
         });
     };
 
     edit = async (req, res) => {
         let borrowId = req.query.id;
-        if(borrowId) {
+        if (borrowId) {
             let borrowData = await borrowServices.getBorrowInfoById(borrowId);
             res.render('borrow/edit', {
                 borrow: borrowData,
@@ -40,7 +40,7 @@ class BorrowController {
             // return res.send('ok')
         } else {
             // console.log('error');
-            return res.send('error')
+            return res.send('error');
         }
     };
 
@@ -51,11 +51,11 @@ class BorrowController {
         return res.render('borrow', {
             dataTable: allBorrows,
         });
-    }
-    
+    };
+
     delete = async (req, res) => {
         let id = req.query.id;
-        if(id) {
+        if (id) {
             await borrowServices.deleteBorrowById(id);
             let data = await borrowServices.getAllUser();
             console.log(data);
@@ -67,16 +67,16 @@ class BorrowController {
         }
     };
 
-    // api hiển thị 
+    // api hiển thị
     AllBorrow = async (req, res) => {
         let id = req.query.id; // truyền vào all hoặc id
 
-        if(!id) {
+        if (!id) {
             return res.status(200).json({
                 errCode: 1,
                 errMessage: 'Chưa truyền vào id',
-                borrow: []
-            })
+                borrow: [],
+            });
         }
 
         let borrow = await apiBorrowServices.getAllBorrow(id);
@@ -84,9 +84,16 @@ class BorrowController {
         return res.status(200).json({
             errCode: 0,
             errMessage: 'OK',
-            borrow
-        })
-    }
+            borrow,
+        });
+    };
+
+    // api thêm
+    apiAddBorrow = async (req, res) => {
+        let message = await apiBorrowServices.addNewBorrow(req.body);
+        console.log(message);
+        return res.status(200).json(message);
+    };
 }
 
 module.exports = new BorrowController();

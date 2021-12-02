@@ -33,15 +33,17 @@ class StudentsController {
 
     edit = async (req, res) => {
         let studentId = req.query.id;
-        if(studentId) {
-            let studentData = await studentsServices.getStudentInfoById(studentId);
+        if (studentId) {
+            let studentData = await studentsServices.getStudentInfoById(
+                studentId,
+            );
             res.render('students/edit', {
                 student: studentData,
             });
             // return res.send('ok')
         } else {
             // console.log('error');
-            return res.send('error')
+            return res.send('error');
         }
     };
 
@@ -52,11 +54,11 @@ class StudentsController {
         return res.render('students', {
             dataTable: allStudents,
         });
-    }
+    };
 
     delete = async (req, res) => {
         let id = req.query.id;
-        if(id) {
+        if (id) {
             await studentsServices.deleteStudentById(id);
             let data = await studentsServices.getAllUser();
             console.log(data);
@@ -68,17 +70,16 @@ class StudentsController {
         }
     };
 
-
-    // api hiển thị 
+    // api hiển thị
     AllStudents = async (req, res) => {
         let MSSV = req.query.MSSV; // truyền vào all hoặc MSSV
 
-        if(!MSSV) {
+        if (!MSSV) {
             return res.status(200).json({
                 errCode: 1,
                 errMessage: 'Chưa truyền vào MSSV',
-                students: []
-            })
+                students: [],
+            });
         }
 
         let students = await apiStudentsServices.getAllStudents(MSSV);
@@ -86,9 +87,16 @@ class StudentsController {
         return res.status(200).json({
             errCode: 0,
             errMessage: 'OK',
-            students
-        })
-    }
+            students,
+        });
+    };
+
+    // api thêm
+    apiAddStudent = async (req, res) => {
+        let message = await apiStudentsServices.addNewStudent(req.body);
+        console.log(message);
+        return res.status(200).json(message);
+    };
 }
 
 module.exports = new StudentsController();

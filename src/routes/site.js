@@ -4,7 +4,11 @@ const router = express.Router();
 
 const siteController = require('../controllers/SiteController');
 
+// api login
 router.post('/api/login', siteController.handleLogin);
+
+// api đăng ký, đường dẫn: /api/createUser
+router.post('/api/createUser', siteController.apiCreateUser);
 
 router.get('/login', siteController.login);
 

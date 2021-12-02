@@ -1,5 +1,5 @@
 const loginServices = require('../services/loginServices');
-const userServices = require('../services/userServices');
+const userServices = require('../services/apiUserServices');
 const db = require('../models/index');
 
 class SiteController {
@@ -28,22 +28,28 @@ class SiteController {
         let username = req.body.username;
         let password = req.body.password;
 
-        if(!username || !password) {
+        if (!username || !password) {
             return res.status(500).json({
                 errCode: 1,
-                message: 'Thiếu thông số đầu vào!'
-            })
+                message: 'Thiếu thông số đầu vào!',
+            });
         }
 
         let userData = await userServices.handleUserLogin(username, password);
 
-        
         return res.status(200).json({
             errCode: userData.errCode,
             message: userData.errMessage,
-            user: userData.user ? userData.user : {}
-        })
-    }
+            user: userData.user ? userData.user : {},
+        });
+    };
+
+    // api đăng ký
+    apiCreateUser = async (req, res) => {
+        let message = await userServices.createNewUser(req.body);
+        console.log(message);
+        return res.status(200).json(message);
+    };
 }
 
 module.exports = new SiteController();

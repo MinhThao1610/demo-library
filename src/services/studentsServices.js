@@ -43,14 +43,14 @@ let getAllUser = () => {
 };
 
 let getStudentInfoById = (studentId) => {
-    return new Promise(async(resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             let student = await db.students.findOne({
-                where: {id: studentId},
+                where: { id: studentId },
                 raw: true,
-            })
+            });
 
-            if(student) {
+            if (student) {
                 resolve(student);
             } else {
                 resolve({});
@@ -58,17 +58,17 @@ let getStudentInfoById = (studentId) => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 // cập nhật
 let updateUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let student = await db.students.findOne({
-                where: {id: data.id}
-            })
-            if(student) {
+                where: { id: data.id },
+            });
+            if (student) {
                 student.MSSV = data.MSSV;
                 student.firstName = data.firstName;
                 student.lastName = data.lastName;
@@ -87,29 +87,28 @@ let updateUser = (data) => {
             } else {
                 resolve();
             }
-            
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 // Xóa
 let deleteStudentById = (studentId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let student = await db.students.findOne({
-                where: {id: studentId}
-            })
-            if(student) {
-               await student.destroy();
+                where: { id: studentId },
+            });
+            if (student) {
+                await student.destroy();
             }
             resolve();
         } catch (error) {
             reject(error);
         }
     });
-}
+};
 
 module.exports = {
     createNewUser: createNewUser,

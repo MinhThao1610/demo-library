@@ -33,23 +33,21 @@ let getAllUser = () => {
                 raw: true,
             });
             resolve(users);
-            
         } catch (error) {
             reject(error);
         }
     });
 };
 
-
 let getBookInfoById = (bookId) => {
-    return new Promise(async(resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             let book = await db.books.findOne({
-                where: {id: bookId},
+                where: { id: bookId },
                 raw: true,
-            })
+            });
 
-            if(book) {
+            if (book) {
                 resolve(book);
             } else {
                 resolve({});
@@ -57,17 +55,17 @@ let getBookInfoById = (bookId) => {
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 // cập nhật
 let updateUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let book = await db.books.findOne({
-                where: {id: data.id}
-            })
-            if(book) {
+                where: { id: data.id },
+            });
+            if (book) {
                 book.name = data.name;
                 book.category = data.category;
                 book.publisher = data.publisher;
@@ -83,30 +81,28 @@ let updateUser = (data) => {
             } else {
                 resolve();
             }
-            
         } catch (error) {
             reject(error);
         }
     });
-}
+};
 
 // Xóa
 let deleteBookById = (bookId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let book = await db.books.findOne({
-                where: {id: bookId}
-            })
-            if(book) {
-               await book.destroy();
+                where: { id: bookId },
+            });
+            if (book) {
+                await book.destroy();
             }
             resolve();
         } catch (error) {
             reject(error);
         }
     });
-}
-
+};
 
 module.exports = {
     createNewUser: createNewUser,

@@ -44,7 +44,7 @@ class BooksController {
 
     edit = async (req, res) => {
         let bookId = req.query.id;
-        if(bookId) {
+        if (bookId) {
             let bookData = await booksServices.getBookInfoById(bookId);
             res.render('books/edit', {
                 book: bookData,
@@ -52,7 +52,7 @@ class BooksController {
             // return res.send('ok')
         } else {
             // console.log('error');
-            return res.send('error')
+            return res.send('error');
         }
     };
 
@@ -63,11 +63,11 @@ class BooksController {
         return res.render('books', {
             dataTable: allBoooks,
         });
-    }
-    
+    };
+
     deleteBook = async (req, res) => {
         let id = req.query.id;
-        if(id) {
+        if (id) {
             await booksServices.deleteBookById(id);
             let data = await booksServices.getAllUser();
             console.log(data);
@@ -80,16 +80,16 @@ class BooksController {
         }
     };
 
-    // api hiển thị 
+    // api hiển thị
     AllBooks = async (req, res) => {
         let id = req.query.id; // truyền vào all hoặc id
 
-        if(!id) {
+        if (!id) {
             return res.status(200).json({
                 errCode: 1,
                 errMessage: 'Chưa truyền vào id',
-                books: []
-            })
+                books: [],
+            });
         }
 
         let books = await apiBooksServices.getAllBooks(id);
@@ -97,10 +97,16 @@ class BooksController {
         return res.status(200).json({
             errCode: 0,
             errMessage: 'OK',
-            books
-        })
-    }
+            books,
+        });
+    };
+
+    // api thêm
+    apiAddBook = async (req, res) => {
+        let message = await apiBooksServices.addNewBook(req.body);
+        console.log(message);
+        return res.status(200).json(message);
+    };
 }
 
 module.exports = new BooksController();
-

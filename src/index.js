@@ -11,9 +11,11 @@ const route = require('./routes');
 const db = require('./config');
 
 // cors
-app.use(cors({
-    origin: true
-}));
+app.use(
+    cors({
+        origin: true,
+    }),
+);
 
 // Connect to DB
 db.connectBD();

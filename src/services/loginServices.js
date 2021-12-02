@@ -21,9 +21,8 @@ let createNewUser = async (data) => {
     });
 };
 
-// hash password hiện đang lỗi, làm sau
+// hash password
 let hashUserPassword = (password) => {
-    //cách 1
     return new Promise(async (resolve, reject) => {
         try {
             let hash = await bcrypt.hashSync(password, salt);
@@ -32,14 +31,6 @@ let hashUserPassword = (password) => {
             reject(error);
         }
     });
-
-    // cách 2
-    // bcrypt.genSalt(10, function(err, salt) {
-    //     bcrypt.hash(password, salt, function(err, hash) {
-    //         // Store hash in your password DB.
-    //         console.log('hash', hash); // lỗi
-
-    // });
 };
 
 // hiển thị thông tin
