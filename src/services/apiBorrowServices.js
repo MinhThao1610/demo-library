@@ -136,9 +136,33 @@ let updateBorrow = (data) => {
     });
 };
 
+// lấy thông tin
+let searchBorrow = (borrowId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let borrows = '';
+            if (borrowId == 'ALL') {
+                borrows = await db.borrow_books.findAll({
+                    attributes: ['staff'],
+                });
+            }
+            if (borrowId && borrowId !== 'ALL') {
+                borrows = await db.borrow_books.findOne({
+                    where: { id: borrowId },
+                    attributes: ['staff'],
+                });
+            }
+            resolve(borrows);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
 module.exports = {
     getAllBorrow: getAllBorrow,
     addNewBorrow: addNewBorrow,
     deleteBorrow: deleteBorrow,
     updateBorrow: updateBorrow,
+    searchBorrow: searchBorrow,
 };

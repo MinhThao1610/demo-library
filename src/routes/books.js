@@ -5,6 +5,9 @@ const booksController = require('../controllers/BooksController');
 
 // router.get('/:slug', booksController.show);
 
+// api lấy ra thông tin về thể loại và nhà xuất bản, đường dẫn: /books/api/search?id=
+router.get('/api/search', booksController.apiSearch);
+
 // api thêm sách, đường dẫn: /books/api/add
 router.post('/api/add', booksController.apiAddBook);
 

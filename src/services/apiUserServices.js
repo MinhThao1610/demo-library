@@ -96,34 +96,35 @@ let createNewUser = (data) => {
         try {
             // check username
             let checkUser = await checkUserUserName(data.username);
+            // check email
+            let checkEmail = await checkUserEmail(data.email);
+
             if (checkUser == true) {
                 resolve({
                     errCode: 1,
                     message: 'Tên tài khoản đã được sử dụng!',
                 });
-            }
-
-            // // check email
-            let checkEmail = await checkUserEmail(data.email);
-            if (checkEmail == true) {
+            } else if (checkEmail == true) {
                 resolve({
                     errCode: 2,
                     message: 'Email đã được sử dụng!',
                 });
+            } else {
+                let hashPasswordFromBcrypt = await hashUserPassword(
+                    data.password,
+                );
+                await db.staffs.create({
+                    fullname: data.fullname,
+                    email: data.email,
+                    phoneNumber: data.phoneNumber,
+                    username: data.username,
+                    password: hashPasswordFromBcrypt,
+                });
+                resolve({
+                    errCode: 0,
+                    message: 'OK',
+                });
             }
-
-            let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-            await db.staffs.create({
-                fullname: data.fullname,
-                email: data.email,
-                phoneNumber: data.phoneNumber,
-                username: data.username,
-                password: hashPasswordFromBcrypt,
-            });
-            resolve({
-                errCode: 0,
-                message: 'OK',
-            });
         } catch (error) {
             reject(error);
         }

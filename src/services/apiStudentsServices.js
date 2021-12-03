@@ -142,9 +142,33 @@ let updateStudent = (data) => {
     });
 };
 
+// lấy thông tin
+let searchStudent = (MSSV) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let students = '';
+            if (MSSV == 'ALL') {
+                students = await db.students.findAll({
+                    attributes: ['class', 'faculty'],
+                });
+            }
+            if (MSSV && MSSV !== 'ALL') {
+                students = await db.students.findOne({
+                    where: { MSSV: MSSV },
+                    attributes: ['class', 'faculty'],
+                });
+            }
+            resolve(students);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
 module.exports = {
     getAllStudents: getAllStudents,
     addNewStudent: addNewStudent,
     deleteStudent: deleteStudent,
     updateStudent: updateStudent,
+    searchStudent: searchStudent,
 };

@@ -176,9 +176,33 @@ let updateBook = (data) => {
     });
 };
 
+// lấy thông tin
+let searchBook = (bookId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let books = '';
+            if (bookId == 'ALL') {
+                books = await db.books.findAll({
+                    attributes: ['category', 'publisher'],
+                });
+            }
+            if (bookId && bookId !== 'ALL') {
+                books = await db.books.findOne({
+                    where: { id: bookId },
+                    attributes: ['category', 'publisher'],
+                });
+            }
+            resolve(books);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
 module.exports = {
     getAllBooks: getAllBooks,
     addNewBook: addNewBook,
     deleteBook: deleteBook,
     updateBook: updateBook,
+    searchBook: searchBook,
 };

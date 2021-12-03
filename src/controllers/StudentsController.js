@@ -116,6 +116,27 @@ class StudentsController {
         let message = await apiStudentsServices.updateStudent(data);
         return res.status(200).json(message);
     };
+
+    // api search
+    apiSearch = async (req, res) => {
+        let MSSV = req.query.MSSV; // truyền vào all hoặc MSSV
+
+        if (!MSSV) {
+            return res.status(200).json({
+                errCode: 1,
+                errMessage: 'Chưa truyền vào MSSV',
+                students: [],
+            });
+        }
+
+        let students = await apiStudentsServices.searchStudent(MSSV);
+
+        return res.status(200).json({
+            errCode: 0,
+            errMessage: 'OK',
+            students,
+        });
+    };
 }
 
 module.exports = new StudentsController();
