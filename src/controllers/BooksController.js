@@ -110,13 +110,13 @@ class BooksController {
 
     // api xóa
     apiDeleteBook = async (req, res) => {
-        if (!req.body.id) {
+        if (!req.query.id) {
             return res.status(200).json({
                 errCode: 1,
                 errMessage: 'Thiếu thông số bắt buộc',
             });
         }
-        let message = await apiBooksServices.deleteBook(req.body.id);
+        let message = await apiBooksServices.deleteBook(req.query.id);
         return res.status(200).json(message);
     };
 

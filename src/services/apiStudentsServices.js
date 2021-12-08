@@ -1,3 +1,4 @@
+const { sequelize } = require('../models/index');
 const db = require('../models/index');
 
 // API hiển thị
@@ -6,11 +7,18 @@ let getAllStudents = (MSSV) => {
         try {
             let students = '';
             if (MSSV == 'ALL') {
-                students = await db.students.findAll({
-                    attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
+                students = await sequelize.query("SELECT s.id, s.MSSV, s.firstName, s.lastName, c.name as class, f.name as faculty, s.address, s.phoneNumber, s.create_date, s.expire_date, s.createdAt, s.updatedAt FROM students s JOIN class c ON s.class = c.id JOIN faculty f ON s.faculty = f.id",
+                {
+                    type: db.SELECT 
                 });
+                // students = await db.students.findAll({
+                    
+                //     attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
+                // });
+                
             }
             if (MSSV && MSSV !== 'ALL') {
+
                 students = await db.students.findOne({
                     where: { MSSV: MSSV },
                 });
