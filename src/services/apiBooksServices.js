@@ -91,6 +91,18 @@ let addNewBook = (data) => {
                     message: 'Sách đã tồn tại!',
                 });
             } else {
+                if(checkCategory == false) {
+                    await db.category.create({
+                        name: data.category,
+                    })
+                }
+
+                if(checkPublisher == false) {
+                    await db.publisher.create({
+                        name: data.publisher,
+                    })
+                }
+
                 await db.books.create({
                     name: data.name,
                     category: data.category,
