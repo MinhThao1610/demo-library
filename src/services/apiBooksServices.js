@@ -1,3 +1,4 @@
+const { sequelize } = require('../models/index');
 const db = require('../models/index');
 
 // API hiển thị
@@ -6,9 +7,15 @@ let getAllBooks = (bookId) => {
         try {
             let books = '';
             if (bookId == 'ALL') {
-                books = await db.books.findAll({
-                    attributes: { exclude: ['createdAt', 'updatedAt'] },
-                });
+                books = await sequelize.query(
+                    'SELECT b.id, b.name, c.name as category, p.name as publisher, b.total_amount, b.current_number, b.total_lost, b.createdAt, b.updatedAt FROM books b JOIN category c ON b.category = c.id JOIN publisher p ON b.publisher = p.id',
+                    {
+                        type: db.SELECT,
+                    },
+                );
+                // books = await db.books.findAll({
+                //     attributes: { exclude: ['createdAt', 'updatedAt'] },
+                // });
             }
             if (bookId && bookId !== 'ALL') {
                 books = await db.books.findOne({
@@ -91,16 +98,16 @@ let addNewBook = (data) => {
                     message: 'Sách đã tồn tại!',
                 });
             } else {
-                if(checkCategory == false) {
+                if (checkCategory == false) {
                     await db.category.create({
                         name: data.category,
-                    })
+                    });
                 }
 
-                if(checkPublisher == false) {
+                if (checkPublisher == false) {
                     await db.publisher.create({
                         name: data.publisher,
-                    })
+                    });
                 }
 
                 await db.books.create({
@@ -188,33 +195,9 @@ let updateBook = (data) => {
     });
 };
 
-// lấy thông tin
-let searchBook = (bookId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let books = '';
-            if (bookId == 'ALL') {
-                books = await db.books.findAll({
-                    attributes: ['category', 'publisher'],
-                });
-            }
-            if (bookId && bookId !== 'ALL') {
-                books = await db.books.findOne({
-                    where: { id: bookId },
-                    attributes: ['category', 'publisher'],
-                });
-            }
-            resolve(books);
-        } catch (error) {
-            reject(error);
-        }
-    });
-};
-
 module.exports = {
     getAllBooks: getAllBooks,
     addNewBook: addNewBook,
     deleteBook: deleteBook,
     updateBook: updateBook,
-    searchBook: searchBook,
 };

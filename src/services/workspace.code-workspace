@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\nodejs\\blog"
+		},
+		{
+			"path": "..\\.."
+		},
+		{
+			"path": "D:\\Documents_D\\ReactJs\\Test"
+		},
+		{
+			"path": "D:\\Documents_D\\ReactJs\\todoapp"
+		},
+		{
+			"path": "D:\\Documents_D\\phát triển ứng dụng web\\Tuan13"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\Downloads\\routing"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Test"
+	}
+}

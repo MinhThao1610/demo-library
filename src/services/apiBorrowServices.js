@@ -1,3 +1,4 @@
+const { sequelize } = require('../models/index');
 const db = require('../models/index');
 
 // API hiển thị
@@ -6,9 +7,15 @@ let getAllBorrow = (borrowId) => {
         try {
             let borrows = '';
             if (borrowId == 'ALL') {
-                borrows = await db.borrow_books.findAll({
-                    attributes: { exclude: ['createdAt', 'updatedAt'] },
-                });
+                borrows = await sequelize.query(
+                    'SELECT br.id, br.MSSV, b.name as nameBook, br.borrow_date, br.pay_date, s.fullname as nameStaff, br.note, br.createdAt, br.updatedAt FROM borrow_books br JOIN books b ON br.book_id = b.id JOIN staffs s ON br.staff = s.id',
+                    {
+                        type: db.SELECT,
+                    },
+                );
+                // borrows = await db.borrow_books.findAll({
+                //     attributes: { exclude: ['createdAt', 'updatedAt'] },
+                // });
             }
             if (borrowId && borrowId !== 'ALL') {
                 borrows = await db.borrow_books.findOne({

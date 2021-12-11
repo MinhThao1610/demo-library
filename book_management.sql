@@ -35,9 +35,9 @@ CREATE TABLE `books` (
   PRIMARY KEY (`id`),
   KEY `frk1` (`category`),
   KEY `frk2` (`publisher`),
-  CONSTRAINT `frk1` FOREIGN KEY (`category`) REFERENCES `category` (`id`),
-  CONSTRAINT `frk2` FOREIGN KEY (`publisher`) REFERENCES `publisher` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `frk1` FOREIGN KEY (`category`) REFERENCES `categories` (`id`),
+  CONSTRAINT `frk2` FOREIGN KEY (`publisher`) REFERENCES `publishers` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `books` (
 
 LOCK TABLES `books` WRITE;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
-INSERT INTO `books` VALUES (2,'Toán cao cấp 1',1,'1',100,100,0,'0000-00-00','2021-11-25'),(7,'Xác suất thống kê 1',1,'1',200,200,0,'2021-11-25','2021-11-25'),(10,'Marketing',1,'1',20,20,0,'2021-11-25','2021-11-25');
+INSERT INTO `books` VALUES (2,'Toán cao cấp 1',1,'1',100,100,0,'0000-00-00','2021-11-25'),(10,'Marketing',1,'1',20,20,0,'2021-11-25','2021-11-25'),(11,'Cấu trúc dữ liệu và giải thuật',1,'1',20,0,0,'2021-12-02','2021-12-02'),(14,'Mạng máy tính',1,'1',50,50,0,'2021-12-02','2021-12-02'),(15,'Triết học Mac - Lê-nin',1,'1',75,75,0,'2021-12-02','2021-12-02');
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,7 +74,7 @@ CREATE TABLE `borrow_books` (
   CONSTRAINT `abc` FOREIGN KEY (`MSSV`) REFERENCES `students` (`MSSV`),
   CONSTRAINT `abc2` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
   CONSTRAINT `abc3` FOREIGN KEY (`staff`) REFERENCES `staffs` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,104 +83,112 @@ CREATE TABLE `borrow_books` (
 
 LOCK TABLES `borrow_books` WRITE;
 /*!40000 ALTER TABLE `borrow_books` DISABLE KEYS */;
-INSERT INTO `borrow_books` VALUES (8,20020113,2,'2021-11-19','2022-03-19',1,'Nếu trả muộn thì phạt tiền','2021-11-19 10:54:16','2021-11-25 15:01:35');
+INSERT INTO `borrow_books` VALUES (8,20020113,2,'2021-11-19','2022-03-19',13,'Đang mượn','2021-11-19 10:54:16','2021-12-03 00:01:47'),(11,19020777,14,'2021-12-02','2022-01-05',11,'Đang mượn','2021-12-02 16:03:24','2021-12-03 00:00:21'),(14,20020112,15,'2021-12-03','2022-03-03',12,'Đang mượn','2021-12-03 00:04:55','2021-12-03 00:04:55');
 /*!40000 ALTER TABLE `borrow_books` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `category`
+-- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `category` (
+CREATE TABLE `categories` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
+  `createdAt` date NOT NULL,
+  `updatedAt` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `category`
+-- Dumping data for table `categories`
 --
 
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Giáo trình');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'Giáo trình','0000-00-00','0000-00-00');
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `class`
+-- Table structure for table `classes`
 --
 
-DROP TABLE IF EXISTS `class`;
+DROP TABLE IF EXISTS `classes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `class` (
+CREATE TABLE `classes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
+  `createdAt` date NOT NULL,
+  `updatedAt` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `class`
+-- Dumping data for table `classes`
 --
 
-LOCK TABLES `class` WRITE;
-/*!40000 ALTER TABLE `class` DISABLE KEYS */;
-INSERT INTO `class` VALUES (1,'K64J'),(2,'K65J');
-/*!40000 ALTER TABLE `class` ENABLE KEYS */;
+LOCK TABLES `classes` WRITE;
+/*!40000 ALTER TABLE `classes` DISABLE KEYS */;
+INSERT INTO `classes` VALUES (1,'K64J','0000-00-00','0000-00-00'),(2,'K65J','0000-00-00','0000-00-00');
+/*!40000 ALTER TABLE `classes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `faculty`
+-- Table structure for table `faculties`
 --
 
-DROP TABLE IF EXISTS `faculty`;
+DROP TABLE IF EXISTS `faculties`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `faculty` (
+CREATE TABLE `faculties` (
   `id` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `createdAt` date NOT NULL,
+  `updatedAt` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `faculty`
+-- Dumping data for table `faculties`
 --
 
-LOCK TABLES `faculty` WRITE;
-/*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
-INSERT INTO `faculty` VALUES ('1','CNTT');
-/*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
+LOCK TABLES `faculties` WRITE;
+/*!40000 ALTER TABLE `faculties` DISABLE KEYS */;
+INSERT INTO `faculties` VALUES ('1','CNTT','0000-00-00','0000-00-00');
+/*!40000 ALTER TABLE `faculties` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `publisher`
+-- Table structure for table `publishers`
 --
 
-DROP TABLE IF EXISTS `publisher`;
+DROP TABLE IF EXISTS `publishers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `publisher` (
+CREATE TABLE `publishers` (
   `id` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `createdAt` date NOT NULL,
+  `updatedAt` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `publisher`
+-- Dumping data for table `publishers`
 --
 
-LOCK TABLES `publisher` WRITE;
-/*!40000 ALTER TABLE `publisher` DISABLE KEYS */;
-INSERT INTO `publisher` VALUES ('1','Đại học Quốc Gia Hà Nội');
-/*!40000 ALTER TABLE `publisher` ENABLE KEYS */;
+LOCK TABLES `publishers` WRITE;
+/*!40000 ALTER TABLE `publishers` DISABLE KEYS */;
+INSERT INTO `publishers` VALUES ('1','Đại học Quốc Gia Hà Nội','0000-00-00','0000-00-00'),('2','Đại học Ngoại Thương','0000-00-00','0000-00-00');
+/*!40000 ALTER TABLE `publishers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -223,7 +231,7 @@ CREATE TABLE `staffs` (
   `createdAt` date NOT NULL,
   `updatedAt` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +240,7 @@ CREATE TABLE `staffs` (
 
 LOCK TABLES `staffs` WRITE;
 /*!40000 ALTER TABLE `staffs` DISABLE KEYS */;
-INSERT INTO `staffs` VALUES (11,'Nguyễn Thị Minh Thảo','minhthaoo1610@gmail.com','0966114832','Minh Thảo','$2a$10$aeDacqzsABbibYI8nYQS.uEGqxIukM6wCyBOsdhYvp84daGC5XWYy','2021-11-28','2021-11-28'),(12,'Trần Thị Thu Thủy','tranthuy@gmail.com','0972631113','Thủy Trần','$2a$10$aeDacqzsABbibYI8nYQS.upOlSISLSWZLRWjGJaChQ65DRkZYvNDq','2021-11-28','2021-11-28'),(13,'Nguyễn Xuân Phúc Anh','phucanh@gmail.com','0362551744','Phúc Anh','$2a$10$aeDacqzsABbibYI8nYQS.uzOR4hvZx.HSxNj7o65WytRBs/hk7T1a','2021-11-28','2021-11-28');
+INSERT INTO `staffs` VALUES (11,'Nguyễn Thị Minh Thảo','minhthaoo1610@gmail.com','0966114832','Minh Thảo','$2a$10$aeDacqzsABbibYI8nYQS.uEGqxIukM6wCyBOsdhYvp84daGC5XWYy','2021-11-28','2021-11-28'),(12,'Trần Thị Thu Thủy','tranthuy@gmail.com','0972631113','Thủy Trần','$2a$10$aeDacqzsABbibYI8nYQS.upOlSISLSWZLRWjGJaChQ65DRkZYvNDq','2021-11-28','2021-11-28'),(13,'Nguyễn Xuân Phúc Anh','phucanh@gmail.com','0362551744','Phúc Anh','$2a$10$aeDacqzsABbibYI8nYQS.uzOR4hvZx.HSxNj7o65WytRBs/hk7T1a','2021-11-28','2021-11-28'),(14,'Nguyễn Thị Hồng','nguyenhong@gmail.com','0927364999','NguyenHong','$2a$10$LRvokhCtqZykSWfZ1KGdjOChvlLT7fWLAYoNr1ySwBxEDosu/HWoW','2021-12-02','2021-12-02');
 /*!40000 ALTER TABLE `staffs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -260,9 +268,9 @@ CREATE TABLE `students` (
   KEY `MSSV` (`MSSV`),
   KEY `class` (`class`,`faculty`),
   KEY `sdsd` (`faculty`),
-  CONSTRAINT `class` FOREIGN KEY (`class`) REFERENCES `class` (`id`),
-  CONSTRAINT `faculty` FOREIGN KEY (`faculty`) REFERENCES `faculty` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `class` FOREIGN KEY (`class`) REFERENCES `classes` (`id`),
+  CONSTRAINT `faculty` FOREIGN KEY (`faculty`) REFERENCES `faculties` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,7 +279,7 @@ CREATE TABLE `students` (
 
 LOCK TABLES `students` WRITE;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` VALUES (1,20020112,'Nguyễn Văn','Anh',2,'1','Mai dịch, Cầu Giấy, Hà Nội','0372111223','2020-09-01','2024-09-01','2021-11-18','2021-11-25'),(2,20020113,'Nguyễn Văn','Bình',2,'1','Xuân Thủy, Cầu Giấy, Hà Nội','0973641212','2020-09-01','2024-09-01','2021-11-18','2021-11-25'),(4,19020777,'Nguyễn Thị','Hoa',1,'1','Tân yên, Bắc Giang','09273635451','2019-01-09','2023-01-09','2021-11-25','2021-11-25');
+INSERT INTO `students` VALUES (1,20020112,'Nguyễn Văn','Anh',2,'1','Mai dịch, Cầu Giấy, Hà Nội','0372111223','2020-09-01','2024-09-01','2021-11-18','2021-11-25'),(2,20020113,'Nguyễn Thị','Bình',2,'1','Xuân Thủy, Cầu Giấy, Hà Nội','0973641212','2020-09-01','2024-09-01','2021-11-18','2021-12-02'),(4,19020777,'Nguyễn Thị','Hoa',1,'1','Tân yên, Bắc Giang','09273635451','2019-01-09','2023-01-09','2021-11-25','2021-11-25'),(6,19020777,'Lê Thị','Vân',1,'1','Sơn Tây, Hà Nội','0384753753','2019-09-01','2023-09-01','2021-12-02','2021-12-02'),(7,19020777,'Nguyễn Hồng','Nhung',1,'1','Hà Đông, Hà Nội','0384732221','2019-09-01','2023-09-01','2021-12-02','2021-12-02'),(8,19020777,'Nguyễn Hồng','Nhung',1,'1','Hà Đông, Hà Nội','0384732221','2019-09-01','2023-09-01','2021-12-02','2021-12-02'),(9,19020777,'Nguyễn Hồng','Nhung',1,'1','Hà Đông, Hà Nội','0384732221','2019-09-01','2023-09-01','2021-12-02','2021-12-02');
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -284,4 +292,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-28 19:38:12
+-- Dump completed on 2021-12-11 17:32:24

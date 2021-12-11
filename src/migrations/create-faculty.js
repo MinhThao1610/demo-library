@@ -4,7 +4,7 @@ const { raw } = require('mysql');
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('faculty', {
+        await queryInterface.createTable('faculties', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -27,6 +27,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable('faculty');
+        await queryInterface.dropTable('faculties');
     },
 };
