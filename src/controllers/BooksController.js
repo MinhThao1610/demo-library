@@ -82,8 +82,11 @@ class BooksController {
 
     // api hiển thị
     AllBooks = async (req, res) => {
-        let name = req.query.name;
         let id = req.query.id; // truyền vào all hoặc id
+        let name = req.query.name;
+        let category = req.query.category;
+        let publisher = req.query.publisher;
+
         if (!id) {
             return res.status(200).json({
                 errCode: 1,
@@ -94,9 +97,13 @@ class BooksController {
 
         let books = await apiBooksServices.getAllBooks(id);
 
-        let search = [];
-        if (name) {
-            search = await apiBooksServices.searchBook(name);
+        let search = {};
+        if (name || category || publisher) {
+            search = await apiBooksServices.searchBook(
+                name,
+                category,
+                publisher,
+            );
         }
 
         return res.status(200).json({

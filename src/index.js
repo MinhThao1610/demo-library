@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const Sequelize = require('sequelize');
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const path = require('path');
 const app = express();

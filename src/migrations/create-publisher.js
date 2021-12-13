@@ -1,7 +1,5 @@
 'use strict';
 
-const { raw } = require('mysql');
-
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.createTable('publishers', {
@@ -17,12 +15,10 @@ module.exports = {
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
-                raw: true,
             },
             updatedAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
-                raw: true,
             },
         });
     },

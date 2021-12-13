@@ -1,6 +1,7 @@
 const db = require('../models/index');
 const studentsServices = require('../services/studentsServices');
 const apiStudentsServices = require('../services/apiStudentsServices');
+const { query } = require('express');
 
 class StudentsController {
     // [GET] /students
@@ -73,6 +74,9 @@ class StudentsController {
     // api hiển thị
     AllStudents = async (req, res) => {
         let MSSV = req.query.MSSV; // truyền vào all hoặc MSSV
+        let classes = req.query.classes;
+        let faculty = req.query.faculty;
+        let phoneNumber = req.query.phoneNumber;
 
         if (!MSSV) {
             return res.status(200).json({
@@ -84,10 +88,20 @@ class StudentsController {
 
         let students = await apiStudentsServices.getAllStudents(MSSV);
 
+        let search = {};
+        if (classes || faculty || phoneNumber) {
+            search = await apiStudentsServices.searchStudent(
+                classes,
+                faculty,
+                phoneNumber,
+            );
+        }
+
         return res.status(200).json({
             errCode: 0,
             errMessage: 'OK',
             students,
+            search,
         });
     };
 
@@ -115,27 +129,6 @@ class StudentsController {
         let data = req.body;
         let message = await apiStudentsServices.updateStudent(data);
         return res.status(200).json(message);
-    };
-
-    // api search
-    apiSearch = async (req, res) => {
-        let MSSV = req.query.MSSV; // truyền vào all hoặc MSSV
-
-        if (!MSSV) {
-            return res.status(200).json({
-                errCode: 1,
-                errMessage: 'Chưa truyền vào MSSV',
-                students: [],
-            });
-        }
-
-        let students = await apiStudentsServices.searchStudent(MSSV);
-
-        return res.status(200).json({
-            errCode: 0,
-            errMessage: 'OK',
-            students,
-        });
     };
 }
 

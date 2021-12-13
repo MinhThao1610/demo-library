@@ -18,9 +18,13 @@ let getAllBooks = (bookId) => {
                 // });
             }
             if (bookId && bookId !== 'ALL') {
-                books = await db.books.findOne({
-                    where: { id: bookId },
-                });
+                books = await sequelize.query(
+                    'SELECT b.id, b.name, c.name as categories, p.name as publishers, b.total_amount, b.current_number, b.total_lost, b.createdAt, b.updatedAt FROM books b JOIN categories c ON b.category = c.id JOIN publishers p ON b.publisher = p.id where b.id =' +
+                        bookId,
+                    {
+                        type: db.SELECT,
+                    },
+                );
             }
             resolve(books);
         } catch (error) {
@@ -30,27 +34,38 @@ let getAllBooks = (bookId) => {
 };
 
 // search
-let searchBook = (nameBook) => {
+let searchBook = (nameBook, categoryBook, publisherBook) => {
     return new Promise(async (resolve, reject) => {
         try {
             let books = '';
-            if (nameBook == 'ALL') {
-                books = await sequelize.query(
-                    'SELECT b.id, b.name, c.name as categories, p.name as publishers, b.total_amount, b.current_number, b.total_lost, b.createdAt, b.updatedAt FROM books b JOIN categories c ON b.category = c.id JOIN publishers p ON b.publisher = p.id',
-                    {
-                        type: db.SELECT,
-                    },
-                );
-                // books = await db.books.findAll({
-                //     attributes: { exclude: ['createdAt', 'updatedAt'] },
-                // });
+            let str =
+                'SELECT b.id, b.name, c.name as category, p.name as publisher, b.total_amount, b.current_number, b.total_lost, b.createdAt, b.updatedAt FROM books b JOIN categories c ON b.category = c.id JOIN publishers p ON b.publisher = p.id WHERE';
+            if (nameBook) {
+                if (str.search('LIKE') != -1) {
+                    str += ' AND b.name LIKE ' + '"%' + nameBook + '%"';
+                } else {
+                    str += ' b.name LIKE ' + '"%' + nameBook + '%"';
+                }
             }
-            if (nameBook && nameBook !== 'ALL') {
-                // books.nameBook = new RegExp(db.books.name, 'i')
-                books = await db.books.findAll({
-                    where: { id: bookId },
-                });
+
+            if (categoryBook) {
+                if (str.search('LIKE') != -1) {
+                    str += ' AND c.name LIKE ' + '"%' + categoryBook + '%"';
+                } else {
+                    str += ' c.name LIKE ' + '"%' + categoryBook + '%"';
+                }
             }
+
+            if (publisherBook) {
+                if (str.search('LIKE') != -1) {
+                    str += ' AND p.name LIKE ' + '"%' + publisherBook + '%"';
+                } else {
+                    str += ' p.name LIKE ' + '"%' + publisherBook + '%"';
+                }
+            }
+            books = await sequelize.query(str, {
+                type: db.SELECT,
+            });
             resolve(books);
         } catch (error) {
             reject(error);
@@ -127,18 +142,6 @@ let addNewBook = (data) => {
                     message: 'Sách đã tồn tại!',
                 });
             } else {
-                if (checkCategory == false) {
-                    await db.category.create({
-                        name: data.category,
-                    });
-                }
-
-                if (checkPublisher == false) {
-                    await db.publisher.create({
-                        name: data.publisher,
-                    });
-                }
-
                 await db.books.create({
                     name: data.name,
                     category: data.category,
@@ -230,4 +233,5 @@ module.exports = {
     deleteBook: deleteBook,
     updateBook: updateBook,
     searchBook: searchBook,
+    // searchCategoryBook: searchCategoryBook,
 };

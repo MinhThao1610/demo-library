@@ -19,9 +19,13 @@ let getAllStudents = (MSSV) => {
                 // });
             }
             if (MSSV && MSSV !== 'ALL') {
-                students = await db.students.findOne({
-                    where: { MSSV: MSSV },
-                });
+                students = await sequelize.query(
+                    'SELECT s.id, s.MSSV, s.firstName, s.lastName, c.name as classes, f.name as faculties, s.address, s.phoneNumber, s.create_date, s.expire_date, s.createdAt, s.updatedAt FROM students s JOIN classes c ON s.class = c.id JOIN faculties f ON s.faculty = f.id where s.MSSV = ' +
+                        MSSV,
+                    {
+                        type: db.SELECT,
+                    },
+                );
             }
             resolve(students);
         } catch (error) {
@@ -151,21 +155,42 @@ let updateStudent = (data) => {
 };
 
 // lấy thông tin
-let searchStudent = (MSSV) => {
+let searchStudent = (classes, faculty, phoneNumber) => {
     return new Promise(async (resolve, reject) => {
         try {
             let students = '';
-            if (MSSV == 'ALL') {
-                students = await db.students.findAll({
-                    attributes: ['class', 'faculty'],
-                });
+            let str =
+                'SELECT s.id, s.MSSV, s.firstName, s.lastName, c.name as class, f.name as faculty, s.address, s.phoneNumber, s.create_date, s.expire_date, s.createdAt, s.updatedAt FROM students s JOIN classes c ON s.class = c.id JOIN faculties f ON s.faculty = f.id WHERE ';
+
+            // thử postman là classes
+            if (classes) {
+                if (str.search('LIKE') != -1) {
+                    str += 'AND c.name LIKE ' + '"%' + classes + '%"';
+                } else {
+                    str += 'c.name LIKE ' + '"%' + classes + '%"';
+                }
             }
-            if (MSSV && MSSV !== 'ALL') {
-                students = await db.students.findOne({
-                    where: { MSSV: MSSV },
-                    attributes: ['class', 'faculty'],
-                });
+
+            if (faculty) {
+                if (str.search('LIKE') != -1) {
+                    str += 'AND f.name LIKE ' + '"%' + faculty + '%"';
+                } else {
+                    str += 'f.name LIKE ' + '"%' + faculty + '%"';
+                }
             }
+
+            if (phoneNumber) {
+                if (str.search('LIKE') != -1) {
+                    str +=
+                        'AND s.phoneNumber LIKE ' + '"%' + phoneNumber + '%"';
+                } else {
+                    str += 's.phoneNumber LIKE ' + '"%' + phoneNumber + '%"';
+                }
+            }
+
+            students = await sequelize.query(str, {
+                type: db.SELECT,
+            });
             resolve(students);
         } catch (error) {
             reject(error);

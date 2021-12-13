@@ -70,6 +70,9 @@ class BorrowController {
     // api hiển thị
     AllBorrow = async (req, res) => {
         let id = req.query.id; // truyền vào all hoặc id
+        let MSSV = req.query.MSSV;
+        let nameBook = req.query.nameBook;
+        let staff = req.query.staff;
 
         if (!id) {
             return res.status(200).json({
@@ -81,10 +84,20 @@ class BorrowController {
 
         let borrow = await apiBorrowServices.getAllBorrow(id);
 
+        let search = {};
+        if (MSSV || nameBook || staff) {
+            search = await apiBorrowServices.searchBorrow(
+                MSSV,
+                nameBook,
+                staff,
+            );
+        }
+
         return res.status(200).json({
             errCode: 0,
             errMessage: 'OK',
             borrow,
+            search,
         });
     };
 
@@ -112,27 +125,6 @@ class BorrowController {
         let data = req.body;
         let message = await apiBorrowServices.updateBorrow(data);
         return res.status(200).json(message);
-    };
-
-    // api search
-    apiSearch = async (req, res) => {
-        let id = req.query.id; // truyền vào all hoặc id
-
-        if (!id) {
-            return res.status(200).json({
-                errCode: 1,
-                errMessage: 'Chưa truyền vào id',
-                books: [],
-            });
-        }
-
-        let books = await apiBorrowServices.searchBorrow(id);
-
-        return res.status(200).json({
-            errCode: 0,
-            errMessage: 'OK',
-            books,
-        });
     };
 }
 

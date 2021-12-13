@@ -135,6 +135,34 @@ class SiteController {
             Class,
         });
     };
+
+    // api thêm thể loại
+    apiAddCategory = async (req, res) => {
+        let message = await apiDifferentServices.addNewCategory(req.body);
+        console.log(message);
+        return res.status(200).json(message);
+    };
+
+    // api thêm nhà xuất bản
+    apiAddPublisher = async (req, res) => {
+        let message = await apiDifferentServices.addNewPublisher(req.body);
+        console.log(message);
+        return res.status(200).json(message);
+    };
+
+    // thêm lớp
+    apiAddClass = async (req, res) => {
+        let message = await apiDifferentServices.addNewClass(req.body);
+        console.log(message);
+        return res.status(200).json(message);
+    };
+
+    // thêm khoa
+    apiAddFaculty = async (req, res) => {
+        let message = await apiDifferentServices.addNewFaculty(req.body);
+        console.log(message);
+        return res.status(200).json(message);
+    };
 }
 
 module.exports = new SiteController();

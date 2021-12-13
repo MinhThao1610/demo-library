@@ -5,9 +5,6 @@ const borrowController = require('../controllers/BorrowController');
 
 // router.get('/:slug', borrowController.show);
 
-// api lấy ra thông tin về staff, đường dẫn: /borrow/api/search?id=
-router.get('/api/search', borrowController.apiSearch);
-
 // api thêm phiên mượn sách, đường dẫn: /borrow/api/add
 router.post('/api/add', borrowController.apiAddBorrow);
 

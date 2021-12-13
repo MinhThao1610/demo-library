@@ -18,9 +18,13 @@ let getAllBorrow = (borrowId) => {
                 // });
             }
             if (borrowId && borrowId !== 'ALL') {
-                borrows = await db.borrow_books.findOne({
-                    where: { id: borrowId },
-                });
+                borrows = await sequelize.query(
+                    'SELECT br.id, br.MSSV, b.name as nameBook, br.borrow_date, br.pay_date, s.fullname as nameStaff, br.note, br.createdAt, br.updatedAt FROM borrow_books br JOIN books b ON br.book_id = b.id JOIN staffs s ON br.staff = s.id where br.id = ' +
+                        borrowId,
+                    {
+                        type: db.SELECT,
+                    },
+                );
             }
             resolve(borrows);
         } catch (error) {
@@ -143,22 +147,39 @@ let updateBorrow = (data) => {
     });
 };
 
-// lấy thông tin
-let searchBorrow = (borrowId) => {
+// search
+let searchBorrow = (mssv, nameBook, staff) => {
     return new Promise(async (resolve, reject) => {
         try {
             let borrows = '';
-            if (borrowId == 'ALL') {
-                borrows = await db.borrow_books.findAll({
-                    attributes: ['staff'],
-                });
+            let str =
+                'SELECT br.id, br.MSSV, b.name as nameBook, temp.studentName, temp.class, br.borrow_date, br.pay_date, s.fullname as nameStaff, br.note, br.createdAt, br.updatedAt FROM borrow_books br JOIN books b ON br.book_id = b.id JOIN staffs s ON br.staff = s.id JOIN (SELECT DISTINCT s.MSSV, CONCAT(s.firstName, " ", s.lastName) AS studentName, c.name as class FROM students s JOIN classes c ON s.class = c.id) as temp ON br.MSSV = temp.MSSV WHERE';
+            if (mssv) {
+                if (str.search('LIKE') != -1) {
+                    str += ' AND br.MSSV LIKE ' + '"%' + mssv + '%"';
+                } else {
+                    str += ' br.MSSV LIKE ' + '"%' + mssv + '%"';
+                }
             }
-            if (borrowId && borrowId !== 'ALL') {
-                borrows = await db.borrow_books.findOne({
-                    where: { id: borrowId },
-                    attributes: ['staff'],
-                });
+
+            if (nameBook) {
+                if (str.search('LIKE') != -1) {
+                    str += ' AND b.name LIKE ' + '"%' + nameBook + '%"';
+                } else {
+                    str += ' b.name LIKE ' + '"%' + nameBook + '%"';
+                }
             }
+
+            if (staff) {
+                if (str.search('LIKE') != -1) {
+                    str += ' AND s.fullname LIKE ' + '"%' + staff + '%"';
+                } else {
+                    str += ' s.fullname LIKE ' + '"%' + staff + '%"';
+                }
+            }
+            borrows = await sequelize.query(str, {
+                type: db.SELECT,
+            });
             resolve(borrows);
         } catch (error) {
             reject(error);

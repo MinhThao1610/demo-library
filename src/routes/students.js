@@ -3,9 +3,6 @@ const router = express.Router();
 
 const studentsController = require('../controllers/StudentsController');
 
-// api lấy ra thông tin về thể loại và nhà xuất bản, đường dẫn: /students/api/search?id=
-router.get('/api/search', studentsController.apiSearch);
-
 // api thêm sinh viên, đường dẫn: /students/api/add
 router.post('/api/add', studentsController.apiAddStudent);
 
