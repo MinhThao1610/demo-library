@@ -8,7 +8,7 @@ let getAllStudents = (MSSV) => {
             let students = '';
             if (MSSV == 'ALL') {
                 students = await sequelize.query(
-                    'SELECT s.id, s.MSSV, s.firstName, s.lastName, c.name as class, f.name as faculty, s.address, s.phoneNumber, s.create_date, s.expire_date, s.createdAt, s.updatedAt FROM students s JOIN class c ON s.class = c.id JOIN faculty f ON s.faculty = f.id',
+                    'SELECT s.id, s.MSSV, s.firstName, s.lastName, c.name as classes, f.name as faculties, s.address, s.phoneNumber, s.create_date, s.expire_date, s.createdAt, s.updatedAt FROM students s JOIN classes c ON s.class = c.id JOIN faculties f ON s.faculty = f.id',
                     {
                         type: db.SELECT,
                     },

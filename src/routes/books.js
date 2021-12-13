@@ -11,7 +11,7 @@ router.post('/api/add', booksController.apiAddBook);
 // api sửa sách, đường dẫn: books/api/edit
 router.put('/api/edit', booksController.apiEditBook);
 
-// api xóa sách, đường dẫn: books/api/delete
+// api xóa sách, đường dẫn: books/api/delete?id=
 router.delete('/api/delete', booksController.apiDeleteBook);
 
 // api hiển thị thông tin, đường dẫn lấy api bên frontend: `/books/api?id=${id truyền vào}`

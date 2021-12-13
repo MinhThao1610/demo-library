@@ -97,13 +97,13 @@ class BorrowController {
 
     // api xóa
     apiDeleteBorrow = async (req, res) => {
-        if (!req.body.id) {
+        if (!req.query.id) {
             return res.status(200).json({
                 errCode: 1,
                 errMessage: 'Thiếu thông số bắt buộc',
             });
         }
-        let message = await apiBorrowServices.deleteBorrow(req.body.id);
+        let message = await apiBorrowServices.deleteBorrow(req.query.id);
         return res.status(200).json(message);
     };
 

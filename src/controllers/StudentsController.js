@@ -100,13 +100,13 @@ class StudentsController {
 
     // api xóa
     apiDeleteStudent = async (req, res) => {
-        if (!req.body.MSSV) {
+        if (!req.query.MSSV) {
             return res.status(200).json({
                 errCode: 1,
                 errMessage: 'Thiếu thông số bắt buộc',
             });
         }
-        let message = await apiStudentsServices.deleteStudent(req.body.MSSV);
+        let message = await apiStudentsServices.deleteStudent(req.query.MSSV);
         return res.status(200).json(message);
     };
 

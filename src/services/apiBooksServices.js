@@ -8,7 +8,7 @@ let getAllBooks = (bookId) => {
             let books = '';
             if (bookId == 'ALL') {
                 books = await sequelize.query(
-                    'SELECT b.id, b.name, c.name as category, p.name as publisher, b.total_amount, b.current_number, b.total_lost, b.createdAt, b.updatedAt FROM books b JOIN category c ON b.category = c.id JOIN publisher p ON b.publisher = p.id',
+                    'SELECT b.id, b.name, c.name as categories, p.name as publishers, b.total_amount, b.current_number, b.total_lost, b.createdAt, b.updatedAt FROM books b JOIN categories c ON b.category = c.id JOIN publishers p ON b.publisher = p.id',
                     {
                         type: db.SELECT,
                     },
@@ -19,6 +19,35 @@ let getAllBooks = (bookId) => {
             }
             if (bookId && bookId !== 'ALL') {
                 books = await db.books.findOne({
+                    where: { id: bookId },
+                });
+            }
+            resolve(books);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+// search
+let searchBook = (nameBook) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let books = '';
+            if (nameBook == 'ALL') {
+                books = await sequelize.query(
+                    'SELECT b.id, b.name, c.name as categories, p.name as publishers, b.total_amount, b.current_number, b.total_lost, b.createdAt, b.updatedAt FROM books b JOIN categories c ON b.category = c.id JOIN publishers p ON b.publisher = p.id',
+                    {
+                        type: db.SELECT,
+                    },
+                );
+                // books = await db.books.findAll({
+                //     attributes: { exclude: ['createdAt', 'updatedAt'] },
+                // });
+            }
+            if (nameBook && nameBook !== 'ALL') {
+                // books.nameBook = new RegExp(db.books.name, 'i')
+                books = await db.books.findAll({
                     where: { id: bookId },
                 });
             }
@@ -200,4 +229,5 @@ module.exports = {
     addNewBook: addNewBook,
     deleteBook: deleteBook,
     updateBook: updateBook,
+    searchBook: searchBook,
 };
