@@ -10,6 +10,9 @@ router.post('/api/login', siteController.handleLogin);
 // api đăng ký, đường dẫn: /api/createUser
 router.post('/api/createUser', siteController.apiCreateUser);
 
+// api lấy thông tin staff, đường dẫn: /api/staff?id=
+router.get('/api/staff', siteController.getAllStaff);
+
 // api thêm thể loại, đường dẫn: /api/category/add
 router.post('/api/category/add', siteController.apiAddCategory);
 

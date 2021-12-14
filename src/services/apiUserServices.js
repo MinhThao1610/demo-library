@@ -131,7 +131,31 @@ let createNewUser = (data) => {
     });
 };
 
+// api lấy thông tin staff
+let getAllStaffs = (staffId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let staff = '';
+            if (staffId == 'ALL') {
+                staff = await db.staffs.findAll({
+                    attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
+                });
+            }
+            if (staffId && staffId !== 'ALL') {
+                staff = await db.staffs.findOne({
+                    where: { id: staffId },
+                    attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
+                });
+            }
+            resolve(staff);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 module.exports = {
     handleUserLogin: handleUserLogin,
     createNewUser: createNewUser,
+    getAllStaffs: getAllStaffs,
 };

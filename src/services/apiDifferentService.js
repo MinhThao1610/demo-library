@@ -5,14 +5,11 @@ let getAllCategorys = (categoryId) => {
         try {
             let category = '';
             if (categoryId == 'ALL') {
-                category = await db.category.findAll({
-                    attributes: ['name'],
-                });
+                category = await db.category.findAll();
             }
             if (categoryId && categoryId !== 'ALL') {
                 category = await db.category.findOne({
                     where: { id: categoryId },
-                    attributes: ['name'],
                 });
             }
             resolve(category);
@@ -27,14 +24,11 @@ let getAllPublisher = (publisherId) => {
         try {
             let publisher = '';
             if (publisherId == 'ALL') {
-                publisher = await db.publisher.findAll({
-                    attributes: ['name'],
-                });
+                publisher = await db.publisher.findAll();
             }
             if (publisherId && publisherId !== 'ALL') {
                 publisher = await db.publisher.findOne({
                     where: { id: publisherId },
-                    attributes: ['name'],
                 });
             }
             resolve(publisher);
@@ -49,14 +43,11 @@ let getAllFaculty = (facultyId) => {
         try {
             let faculty = '';
             if (facultyId == 'ALL') {
-                faculty = await db.faculty.findAll({
-                    attributes: ['name'],
-                });
+                faculty = await db.faculty.findAll();
             }
             if (facultyId && facultyId !== 'ALL') {
                 faculty = await db.faculty.findOne({
                     where: { id: facultyId },
-                    attributes: ['name'],
                 });
             }
             resolve(faculty);
@@ -71,14 +62,11 @@ let getAllClass = (classId) => {
         try {
             let Class = '';
             if (classId == 'ALL') {
-                Class = await db.class.findAll({
-                    attributes: ['name'],
-                });
+                Class = await db.class.findAll();
             }
             if (classId && classId !== 'ALL') {
                 Class = await db.class.findOne({
                     where: { id: classId },
-                    attributes: ['name'],
                 });
             }
             resolve(Class);

@@ -2,6 +2,7 @@ const loginServices = require('../services/loginServices');
 const userServices = require('../services/apiUserServices');
 const apiDifferentServices = require('../services/apiDifferentService');
 const db = require('../models/index');
+const apiUserServices = require('../services/apiUserServices');
 
 class SiteController {
     // [GET] /
@@ -51,6 +52,27 @@ class SiteController {
         console.log(message);
         return res.status(200).json(message);
     };
+
+    // api lấy thông tin staff
+    getAllStaff = async (req, res) => {
+        let id = req.query.id; // truyền vào all hoặc id
+
+        if (!id) {
+            return res.status(200).json({
+                errCode: 1,
+                errMessage: 'Chưa truyền vào id',
+                staff: [],
+            });
+        }
+
+        let staff = await apiUserServices.getAllStaffs(id);
+
+        return res.status(200).json({
+            errCode: 0,
+            errMessage: 'OK',
+            staff,
+        });
+    }
 
     // api lấy thông tin thể loại
     apiCategory = async (req, res) => {
